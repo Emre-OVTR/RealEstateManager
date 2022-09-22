@@ -1,16 +1,16 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintLayoutStates
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.EstatesApplication
+import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.view.EstateViewModel
+import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,12 +1,12 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.openclassrooms.realestatemanager.model.Estate
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(entities = [Estate::class], version = 1, exportSchema = false)
@@ -47,8 +47,8 @@ import kotlinx.coroutines.launch
                 INSTANCE?.let { database ->
                     scope.launch{
                         var estateDao = database.estateDao()
-                        var word = Estate("flat")
-                        estateDao.insert(word)
+                        var estate = Estate("Flat", 150000, "Manhattan")
+                        estateDao.insert(estate)
 
                     }
                 }

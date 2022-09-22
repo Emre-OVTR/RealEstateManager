@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/list_item_main_pic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxWidth="200dp"
-        android:textStyle="bold"/>
+        android:paddingBottom="10dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/list_item_main_pic"
+        app:layout_constraintBottom_toTopOf="@id/list_item_city"
+        />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/list_item_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_between_elements"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="@dimen/padding_to_parent"
+        app:layout_constraintStart_toEndOf="@id/list_item_main_pic"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/list_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_big"
+        android:layout_marginStart="@dimen/padding_to_parent"
+        app:layout_constraintStart_toEndOf="@id/list_item_main_pic"
+        app:layout_constraintTop_toBottomOf="@id/list_item_city"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,24 +7,33 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.Estate
 
 class EstateListAdapter : ListAdapter<Estate, EstateListAdapter.EstateViewHolder>(EstatesComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         return EstateViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: EstateViewHolder, position: Int) {
-        val current = getItem(position)
-        holder.bind(current.estateType)
+        val estate = getItem(position)
+        holder.bind(estate)
+
     }
 
     class EstateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val estateItemView: TextView = itemView.findViewById(R.id.text_view)
+        private val estateItemPrice: TextView = itemView.findViewById(R.id.list_item_price)
+        private val estateItemBorough: TextView = itemView.findViewById(R.id.list_item_city)
 
-        fun bind(text: String?) {
-            estateItemView.text = text
+        fun bind(estate: Estate) {
+            estateItemView.text = estate.estateType
+            estateItemPrice.text = estate.price.toString()
+            estateItemBorough.text = estate.borough
         }
+
 
         companion object {
             fun create(parent: ViewGroup): EstateViewHolder {

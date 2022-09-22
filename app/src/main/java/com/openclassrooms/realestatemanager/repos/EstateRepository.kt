@@ -1,6 +1,8 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.repos
 
 import androidx.annotation.WorkerThread
+import com.openclassrooms.realestatemanager.database.EstateDao
+import com.openclassrooms.realestatemanager.model.Estate
 import kotlinx.coroutines.flow.Flow
 
 

@@ -1,6 +1,8 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.view
 
 import androidx.lifecycle.*
+import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.repos.EstateRepository
 import kotlinx.coroutines.launch
 
 class EstateViewModel(private val repository : EstateRepository) : ViewModel() {
