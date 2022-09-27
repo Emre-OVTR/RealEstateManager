@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:textColor="@color/cardview_dark_background"
+        android:text="toto"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginStart="15dp"
@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/space_between_elements"
+        android:text="toto"
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginStart="@dimen/padding_to_parent"
         app:layout_constraintStart_toEndOf="@id/list_item_main_pic"
@@ -40,7 +41,9 @@
     <TextView
         android:id="@+id/list_item_price"
         android:layout_width="wrap_content"
+        android:text="prix"
         android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/size_text_big"
         android:layout_marginStart="@dimen/padding_to_parent"

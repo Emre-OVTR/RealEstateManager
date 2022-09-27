@@ -13,7 +13,6 @@ import com.openclassrooms.realestatemanager.model.Estate
 class EstateListAdapter : ListAdapter<Estate, EstateListAdapter.EstateViewHolder>(EstatesComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
         return EstateViewHolder.create(parent)
     }
 

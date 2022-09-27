@@ -10,7 +10,7 @@ class EstateRepository(private val estateDao: EstateDao) {
 
     val allEstates: Flow<List<Estate>> = estateDao.getEstates()
 
-    @Suppress("RedundantSuspendModifier")
+
     @WorkerThread
     suspend fun insert(estate: Estate) {
         estateDao.insert(estate)
