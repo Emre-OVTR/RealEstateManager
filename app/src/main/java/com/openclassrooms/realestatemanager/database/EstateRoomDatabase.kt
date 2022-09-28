@@ -4,12 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.model.Estate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.*
 
 @Database(entities = [Estate::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
  abstract class EstateRoomDatabase: RoomDatabase() {
 
     abstract fun estateDao(): EstateDao
@@ -47,7 +52,7 @@ import kotlinx.coroutines.launch
                 INSTANCE?.let { database ->
                     scope.launch{
                         var estateDao = database.estateDao()
-                        var estate = Estate("Flat", 150000, "Manhattan")
+                        var estate = Estate(0, "Flat", 150000, "Manhattan", 150, 8, 2, 4, "sold",Date(2010), Date(2014), "Franck")
                         estateDao.insert(estate)
 
                     }
