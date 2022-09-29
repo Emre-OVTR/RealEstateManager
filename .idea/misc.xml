@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout-v21/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_add_estate.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_second.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/estate_info.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_list.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_loan.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_map.xml" value="0.1762917933130699" />
