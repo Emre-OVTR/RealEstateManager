@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
+import kotlinx.android.synthetic.main.fragment_list.*
 
 
 class AddEstate : AppCompatActivity() {
@@ -28,8 +29,8 @@ class AddEstate : AppCompatActivity() {
     lateinit var txtBathroomNumber: EditText
     @BindView((R.id.add_activity_bedroom_number))
     lateinit var txtBedroomNumber: EditText
-    @BindView((R.id.add_activity_add_address))
-    lateinit var txtAdress: EditText
+    @BindView((R.id.add_activity_address))
+    lateinit var txtAddress: EditText
     @BindView((R.id.add_activity_sector_address))
     lateinit var txtSector: EditText
     @BindView((R.id.add_activity_save))
@@ -49,7 +50,7 @@ class AddEstate : AppCompatActivity() {
         ButterKnife.bind(this)
 
         fab.setOnClickListener {
-            var estate = Estate(
+            var estate = Estate( 0,
                 Integer.parseInt(txtPrice.text.toString()),
                 txtEstateType.text.toString(),
                 txtSector.text.toString(),
@@ -57,7 +58,7 @@ class AddEstate : AppCompatActivity() {
                 Integer.parseInt(txtRoomNumber.text.toString()),
                 Integer.parseInt(txtBathroomNumber.text.toString()),
                 Integer.parseInt(txtBedroomNumber.text.toString()),
-                txtAdress.text.toString()
+                txtAddress.text.toString()
             )
             estateViewModel.insert(estate)
             finish()

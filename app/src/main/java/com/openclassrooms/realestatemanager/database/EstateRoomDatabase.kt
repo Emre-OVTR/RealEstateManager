@@ -52,7 +52,7 @@ import java.util.*
                 INSTANCE?.let { database ->
                     scope.launch{
                         var estateDao = database.estateDao()
-                        var estate = Estate(150000, "Flat", "Manhattan", 150, 8, 2, 4, "8 rue Jean")
+                        var estate = Estate(0,150000, "Flat", "Manhattan", 150, 8, 2, 4, "8 rue Jean")
                         estateDao.insert(estate)
 
                     }
