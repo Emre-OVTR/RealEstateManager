@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity (tableName = "estate_table")
-data class Estate(@PrimaryKey(autoGenerate = true) var id: Long,
+data class Estate(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                   var price: Int,
                   var estateType:String,
                   var borough: String,

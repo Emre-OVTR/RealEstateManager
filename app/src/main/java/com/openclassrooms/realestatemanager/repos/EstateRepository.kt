@@ -15,4 +15,6 @@ class EstateRepository(private val estateDao: EstateDao) {
     suspend fun insert(estate: Estate) {
         estateDao.insert(estate)
     }
+
+
 }

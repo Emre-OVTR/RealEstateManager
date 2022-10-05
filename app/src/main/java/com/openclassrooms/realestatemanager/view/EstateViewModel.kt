@@ -12,6 +12,7 @@ class EstateViewModel(private val repository : EstateRepository) : ViewModel() {
     fun insert(estate: Estate) = viewModelScope.launch {
         repository.insert(estate)
     }
+
 }
 
 class EstateViewModelFactory(private val repository: EstateRepository) : ViewModelProvider.Factory{

@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,5 +17,8 @@ interface EstateDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(estate: Estate)
+
+
+
 
 }
