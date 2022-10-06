@@ -13,7 +13,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
 import kotlin.coroutines.coroutineContext
 
-class EstateListAdapter(private val onClickListener: OnClickListener ) : ListAdapter<Estate, EstateListAdapter.EstateViewHolder>(MyDiffUtil()) {
+class EstateListAdapter(private val clickListener: (estate: Estate) -> Unit ) : ListAdapter<Estate, EstateListAdapter.EstateViewHolder>(MyDiffUtil()) {
 
 
 
@@ -23,10 +23,7 @@ class EstateListAdapter(private val onClickListener: OnClickListener ) : ListAda
 
     override fun onBindViewHolder(holder: EstateViewHolder, position: Int) {
         val estate = getItem(position)
-        holder.bind(estate)
-        holder.itemView.setOnClickListener{
-            onClickListener.onClick(estate)
-        }
+        holder.bind(estate, clickListener)
 
     }
 
@@ -35,13 +32,20 @@ class EstateListAdapter(private val onClickListener: OnClickListener ) : ListAda
         private val estateItemPrice: TextView = itemView.findViewById(R.id.list_item_price)
         private val estateItemBorough: TextView = itemView.findViewById(R.id.list_item_city)
 
-        fun bind(estate: Estate) {
+
+        fun bind(estate: Estate,  clickListener: (estate: Estate) -> Unit) {
             estateItemView.text = estate.estateType
             estateItemPrice.text = estate.price.toString()
             estateItemBorough.text = estate.borough
 
-
+            itemView.setOnClickListener{
+                clickListener(estate)
+            }
         }
+
+
+
+
 
 
         companion object {
@@ -67,11 +71,6 @@ class EstateListAdapter(private val onClickListener: OnClickListener ) : ListAda
 
     fun getEstateDetails(position: Int): Estate {
       return getItem(position)
-    }
-
-
-    class OnClickListener(val clickListener: (estate: Estate) -> Unit) {
-        fun onClick(estate: Estate) = clickListener(estate)
     }
 
 

@@ -45,12 +45,12 @@ class ListFragment : Fragment() {
 
 
         recyclerView= view.findViewById(R.id.estate_list)
-        adapter = EstateListAdapter(EstateListAdapter.OnClickListener {
+        adapter = EstateListAdapter {
             val intent = Intent(activity, EstateDetails::class.java)
-                  startActivity(intent)
-                  true
+            startActivity(intent)
+            true
 
-        })
+        }
         recyclerView.adapter = adapter
 
 
