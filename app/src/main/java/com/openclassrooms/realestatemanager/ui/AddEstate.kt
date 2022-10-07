@@ -36,6 +36,8 @@ class AddEstate : AppCompatActivity() {
     @BindView((R.id.add_activity_save))
     lateinit var fab : FloatingActionButton
 
+    lateinit var estate: Estate.EstateEntity
+
 
     private val estateViewModel: EstateViewModel by viewModels {
         EstateViewModelFactory((application as EstatesApplication).repository)
@@ -50,7 +52,7 @@ class AddEstate : AppCompatActivity() {
         ButterKnife.bind(this)
 
         fab.setOnClickListener {
-            var estate = Estate( 0,
+            var estate = Estate.EstateEntity( 0,
                 Integer.parseInt(txtPrice.text.toString()),
                 txtEstateType.text.toString(),
                 txtSector.text.toString(),

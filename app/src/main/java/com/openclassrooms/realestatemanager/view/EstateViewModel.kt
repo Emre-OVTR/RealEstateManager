@@ -7,9 +7,9 @@ import kotlinx.coroutines.launch
 
 class EstateViewModel(private val repository : EstateRepository) : ViewModel() {
 
-    val allEstates: LiveData<List<Estate>> = repository.allEstates.asLiveData()
+    val allEstates: LiveData<List<Estate.EstateEntity>> = repository.allEstates.asLiveData()
 
-    fun insert(estate: Estate) = viewModelScope.launch {
+    fun insert(estate: Estate.EstateEntity) = viewModelScope.launch {
         repository.insert(estate)
     }
 

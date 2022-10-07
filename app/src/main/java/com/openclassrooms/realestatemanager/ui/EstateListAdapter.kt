@@ -1,7 +1,5 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
-import kotlin.coroutines.coroutineContext
 
-class EstateListAdapter(private val clickListener: (estate: Estate) -> Unit ) : ListAdapter<Estate, EstateListAdapter.EstateViewHolder>(MyDiffUtil()) {
+class EstateListAdapter(private val clickListener: (estate: Estate.EstateEntity) -> Unit ) : ListAdapter<Estate.EstateEntity, EstateListAdapter.EstateViewHolder>(MyDiffUtil()) {
 
 
 
@@ -33,7 +30,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate) -> Unit ) : 
         private val estateItemBorough: TextView = itemView.findViewById(R.id.list_item_city)
 
 
-        fun bind(estate: Estate,  clickListener: (estate: Estate) -> Unit) {
+        fun bind(estate: Estate.EstateEntity, clickListener: (estate: Estate.EstateEntity) -> Unit) {
             estateItemView.text = estate.estateType
             estateItemPrice.text = estate.price.toString()
             estateItemBorough.text = estate.borough
@@ -59,17 +56,17 @@ class EstateListAdapter(private val clickListener: (estate: Estate) -> Unit ) : 
 
     }
 
-    class MyDiffUtil : DiffUtil.ItemCallback<Estate>() {
-        override fun areItemsTheSame(oldItem: Estate, newItem: Estate): Boolean {
+    class MyDiffUtil : DiffUtil.ItemCallback<Estate.EstateEntity>() {
+        override fun areItemsTheSame(oldItem: Estate.EstateEntity, newItem: Estate.EstateEntity): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Estate, newItem: Estate): Boolean {
+        override fun areContentsTheSame(oldItem: Estate.EstateEntity, newItem: Estate.EstateEntity): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
-    fun getEstateDetails(position: Int): Estate {
+    fun getEstateDetails(position: Int): Estate.EstateEntity {
       return getItem(position)
     }
 

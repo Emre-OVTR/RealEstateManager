@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.EstatesApplication
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.ui.EstateDetails
 import com.openclassrooms.realestatemanager.ui.EstateListAdapter
 import com.openclassrooms.realestatemanager.view.EstateViewModel
@@ -45,12 +46,7 @@ class ListFragment : Fragment() {
 
 
         recyclerView= view.findViewById(R.id.estate_list)
-        adapter = EstateListAdapter {
-            val intent = Intent(activity, EstateDetails::class.java)
-            startActivity(intent)
-            true
-
-        }
+        adapter = EstateListAdapter (this::onEstateClicked)
         recyclerView.adapter = adapter
 
 
@@ -59,7 +55,14 @@ class ListFragment : Fragment() {
             estates?.let { adapter.submitList(it) }
         })
 
+
     }
+
+   private fun onEstateClicked(estate: Estate.EstateEntity) {
+       val intent = Intent(activity, EstateDetails::class.java)
+       intent.putExtra(EstateDetails.ESTATE, estate)
+       startActivity(intent)
+   }
 
  }
 

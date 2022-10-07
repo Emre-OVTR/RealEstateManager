@@ -3,18 +3,29 @@ package com.openclassrooms.realestatemanager.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
-@Entity (tableName = "estate_table")
-data class Estate(@PrimaryKey(autoGenerate = true) var id: Long = 0,
-                  var price: Int,
-                  var estateType:String,
-                  var borough: String,
-                  var surface: Int,
-                  var roomNumber: Int,
-                  var bathroomNumber: Int,
-                  var bedRoomNumber: Int,
-                  var address: String)
+
+data class Estate(
+    @SerializedName("estate")
+    var estates: List<Estate> = listOf()
+): Serializable {
 
 
+    @Entity(tableName = "estate_table")
+    data class EstateEntity(
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val price: Int,
+        val estateType: String,
+        val borough: String,
+        val surface: Int,
+        val roomNumber: Int,
+        val bathroomNumber: Int,
+        val bedRoomNumber: Int,
+        val address: String
+    ) : Serializable
 
+
+}

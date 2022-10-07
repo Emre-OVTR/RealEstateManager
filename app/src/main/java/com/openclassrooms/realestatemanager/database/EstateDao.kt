@@ -13,10 +13,10 @@ interface EstateDao {
 
 
     @Query("SELECT * FROM estate_table")
-    fun getEstates(): Flow<List<Estate>>
+    fun getEstates(): Flow<List<Estate.EstateEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(estate: Estate)
+    suspend fun insert(estate: Estate.EstateEntity)
 
 
 

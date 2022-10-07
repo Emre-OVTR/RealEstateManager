@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 
 class EstateRepository(private val estateDao: EstateDao) {
 
-    val allEstates: Flow<List<Estate>> = estateDao.getEstates()
+    val allEstates: Flow<List<Estate.EstateEntity>> = estateDao.getEstates()
 
 
     @WorkerThread
-    suspend fun insert(estate: Estate) {
+    suspend fun insert(estate: Estate.EstateEntity) {
         estateDao.insert(estate)
     }
 
