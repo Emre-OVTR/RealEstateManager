@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.openclassrooms.realestatemanager.database.EstateDao
 import com.openclassrooms.realestatemanager.model.Estate
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 class EstateRepository(private val estateDao: EstateDao) {

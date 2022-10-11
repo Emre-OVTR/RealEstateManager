@@ -15,7 +15,7 @@ import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
 import kotlinx.android.synthetic.main.fragment_list.*
 
 
-class AddEstate : AppCompatActivity() {
+class AddEstateActivity : AppCompatActivity() {
 
     @BindView((R.id.add_activity_estate))
     lateinit var txtEstateType: EditText
@@ -49,6 +49,7 @@ class AddEstate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         ButterKnife.bind(this)
 
         fab.setOnClickListener {

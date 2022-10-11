@@ -1,22 +1,15 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.openclassrooms.realestatemanager.EstatesApplication
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.model.Estate
-import com.openclassrooms.realestatemanager.view.EstateViewModel
-import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.action_add -> {
-                val intent = Intent(this, AddEstate::class.java)
+                val intent = Intent(this, AddEstateActivity::class.java)
                 startActivity(intent)
                 true
             }

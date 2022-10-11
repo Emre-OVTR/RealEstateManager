@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.EstateDetails"
+            android:name=".ui.EstateDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddEstate"
+            android:name=".ui.AddEstateActivity"
             android:exported="true" />
         <activity
             android:name=".ui.MainActivity"
