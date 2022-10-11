@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.AddEstateActivity">
+
 
 
     <androidx.appcompat.widget.Toolbar
@@ -14,6 +20,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="20dp"
         app:layout_constraintTop_toTopOf="parent"/>
+    
 
     <TextView
         android:id="@+id/title_estate"
@@ -368,6 +375,159 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <TextView
+        android:id="@+id/title_nearby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_add_title_nearby"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorGreyTitle"
+        android:textSize="@dimen/size_text_big"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address_line"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@id/title_nearby"
+        />
+
+    <CheckBox
+        android:id="@+id/nearby_parks"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent=".49"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_big"
+        android:text="@string/activity_add_estate_parks"
+        android:layout_marginTop="@dimen/space_between_elements"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_nearby"
+        />
+
+    <CheckBox
+        android:id="@+id/nearby_shops"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent=".49"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_big"
+        android:text="@string/activity_add_estate_shops"
+        android:layout_marginTop="@dimen/space_between_elements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_nearby"
+        />
+
+    <CheckBox
+        android:id="@+id/nearby_schools"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent=".49"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_big"
+        android:text="@string/activity_add_estate_schools"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nearby_parks"
+        />
+
+    <CheckBox
+        android:id="@+id/nearby_highway"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent=".49"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_text_big"
+        android:text="@string/activity_add_estate_highway"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nearby_shops"
+        />
+
+    <LinearLayout
+        android:id="@+id/add_activity_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="@string/activity_add_estate_date_hint"
+        app:layout_constraintTop_toBottomOf="@id/nearby_highway"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/space_between_elements"
+        android:paddingBottom="@dimen/small_space_between_items"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_activity_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
+            android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_media"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_add_title_media"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorGreyTitle"
+        android:textSize="@dimen/size_text_big"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_activity_date_layout"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@id/title_media"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_activity_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_media"
+        android:horizontalSpacing="10dp"
+        android:isScrollContainer="false"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:paddingTop="@dimen/space_between_elements"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/add_activity_choose_pic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_add_estate_choose_pic"
+
+        app:layout_constraintWidth_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_activity_recycler_view"
+        android:layout_marginTop="@dimen/space_between_elements"
+        />
+
+    <Button
+        android:id="@+id/add_activity_take_pic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_add_estate_take_pic"
+
+        app:layout_constraintWidth_percent=".5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_activity_recycler_view"
+        android:layout_marginTop="@dimen/space_between_elements"
+        />
+    
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_activity_save"
         android:layout_width="wrap_content"
@@ -379,3 +539,4 @@
         android:layout_marginBottom="@dimen/space_between_elements"
         android:contentDescription="saver" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
