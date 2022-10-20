@@ -27,6 +27,7 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
        val imagePath = selectedImagePath[position]
+        //que veut dire la ligne 29
         holder.picture.setImageBitmap(BitmapFactory.decodeFile(imagePath))
     }
 

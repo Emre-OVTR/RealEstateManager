@@ -8,6 +8,7 @@ import android.content.Intent.ACTION_GET_CONTENT
 import android.net.Uri
 import android.os.Bundle
 import android.os.FileUtils
+import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Button
@@ -15,14 +16,18 @@ import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.EstatesApplication
 import com.openclassrooms.realestatemanager.ImageRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.R2.attr.data
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
@@ -49,9 +54,11 @@ class AddEstateActivity : AppCompatActivity() {
     @BindView((R.id.add_activity_sector_address))
     lateinit var txtSector: EditText
     @BindView((R.id.add_activity_save))
-    lateinit var fab : FloatingActionButton
+    lateinit var saveBtn : FloatingActionButton
     @BindView((R.id.add_activity_choose_pic))
-    lateinit var btn : Button
+    lateinit var choosePicBtn : Button
+    @BindView((R.id.add_activity_take_pic))
+    lateinit var takePicBtn : Button
 
     lateinit var estate: Estate.EstateEntity
     lateinit var recyclerView: RecyclerView
@@ -63,6 +70,16 @@ class AddEstateActivity : AppCompatActivity() {
 
     }
 
+    private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSucces ->
+        if (isSucces) {
+            val file = getImageFromUri(latestTmpUri)
+            file?.let{
+                selectedPaths.add(it.absolutePath)
+            }
+            adapter.addSelectedImages(selectedPaths)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
@@ -70,7 +87,7 @@ class AddEstateActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
 
-        fab.setOnClickListener {
+        saveBtn.setOnClickListener {
             var estate = Estate.EstateEntity( 0,
                 Integer.parseInt(txtPrice.text.toString()),
                 txtEstateType.text.toString(),
@@ -120,16 +137,26 @@ class AddEstateActivity : AppCompatActivity() {
             }
 
 
-        btn.setOnClickListener {
+
+        choosePicBtn.setOnClickListener {
             val intent = Intent(ACTION_GET_CONTENT)
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.type = "*/*"
+            intent.type = "image/*"
             selectImagesActivityResult.launch(intent)
         }
         try {
             deleteTempFiles()
         } catch (e: Exception) {
 
+        }
+
+        takePicBtn.setOnClickListener {
+            lifecycleScope.launchWhenStarted {
+                getTmpFileUri().let { uri ->
+                    latestTmpUri =uri
+                    takeImageResult.launch(uri)
+                }
+            }
         }
 
         
@@ -190,4 +217,15 @@ class AddEstateActivity : AppCompatActivity() {
         }
         return file.delete()
     }
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+    }
+
+    private var latestTmpUri: Uri? = null
 }
