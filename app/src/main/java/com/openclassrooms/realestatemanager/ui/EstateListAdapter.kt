@@ -66,9 +66,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate.EstateEntity)
         }
     }
 
-    fun getEstateDetails(position: Int): Estate.EstateEntity {
-      return getItem(position)
-    }
+
 
 
 }
