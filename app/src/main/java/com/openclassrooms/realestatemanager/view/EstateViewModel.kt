@@ -13,6 +13,8 @@ class EstateViewModel(private val repository : EstateRepository) : ViewModel() {
         repository.insert(estate)
     }
 
+
+
 }
 
 class EstateViewModelFactory(private val repository: EstateRepository) : ViewModelProvider.Factory{

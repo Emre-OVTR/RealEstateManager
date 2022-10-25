@@ -1,22 +1,15 @@
 package com.openclassrooms.realestatemanager
 
-import android.graphics.BitmapFactory
-import android.media.Image
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.openclassrooms.realestatemanager.R2.attr.uri
-import com.openclassrooms.realestatemanager.ui.EstateListAdapter
-import kotlinx.android.synthetic.main.image_recyclerview_item.view.*
 
 class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>() {
 
-    var selectedImagePath = listOf<String>()
+    var selectedImageUri = listOf<Uri>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -26,20 +19,19 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-       val imagePath = selectedImagePath[position]
-        //que veut dire la ligne 29
-        holder.picture.setImageBitmap(BitmapFactory.decodeFile(imagePath))
+       val imageUri = selectedImageUri[position]
+        holder.picture.setImageURI(imageUri)
     }
 
 
 
     override fun getItemCount(): Int {
-        return selectedImagePath.size
+        return selectedImageUri.size
 
     }
 
-    fun addSelectedImages(images: List<String>) {
-        this.selectedImagePath = images
+    fun addSelectedImages(images: List<Uri>) {
+        this.selectedImageUri = images
         notifyDataSetChanged()
     }
 
