@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import com.openclassrooms.realestatemanager.database.EstateDao
 import com.openclassrooms.realestatemanager.model.Estate
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import java.util.*
 
 
 class EstateRepository(private val estateDao: EstateDao) {
@@ -13,8 +13,8 @@ class EstateRepository(private val estateDao: EstateDao) {
 
 
     @WorkerThread
-    suspend fun insert(estate: Estate.EstateEntity) {
-        estateDao.insert(estate)
+    suspend fun insert(estate: Estate.EstateEntity) : Long {
+       return estateDao.insert(estate)
     }
 
 

@@ -1,11 +1,9 @@
 package com.openclassrooms.realestatemanager.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.*
 
 
 data class Estate(
@@ -18,6 +16,11 @@ data class Estate(
     data class EstateEntity(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         val price: Int,
+        //val description : String,
+      //  var isNearParks : Boolean,
+       // val isNearShops : Boolean,
+    //    val isNearSchools: Boolean,
+    //    val isNearHighway: Boolean,
         val estateType: String,
         val borough: String,
         val surface: Int,

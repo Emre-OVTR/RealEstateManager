@@ -4,18 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.Image
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface EstateDao {
+interface ImageDao {
 
-
-    @Query("SELECT * FROM estate_table")
-    fun getEstates(): Flow<List<Estate.EstateEntity>>
+    @Query("SELECT * FROM Image WHERE estateId = :estateId")
+    fun getItems(estateId:Long): Flow<List<Image>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(estate: Estate.EstateEntity) : Long
-
-
+    suspend fun insert(image: Image)
 }

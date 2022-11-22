@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>() {
 
-    var selectedImageUri = listOf<Uri>()
+    private var selectedImageUri = listOf<String>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -20,9 +21,8 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
        val imageUri = selectedImageUri[position]
-        holder.picture.setImageURI(imageUri)
+        holder.picture.setImageURI(Uri.parse(imageUri))
     }
-
 
 
     override fun getItemCount(): Int {
@@ -30,7 +30,8 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
 
     }
 
-    fun addSelectedImages(images: List<Uri>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun addSelectedImages(images: List<String>) {
         this.selectedImageUri = images
         notifyDataSetChanged()
     }

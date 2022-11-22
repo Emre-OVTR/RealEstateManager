@@ -1,14 +1,7 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.app.Activity
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
-import android.content.Intent.ACTION_GET_CONTENT
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,35 +19,38 @@ import com.openclassrooms.realestatemanager.EstatesApplication
 import com.openclassrooms.realestatemanager.ImageRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
-import org.apache.commons.io.FileUtils.copyInputStreamToFile
 import java.io.File
 
 
 class AddEstateActivity : AppCompatActivity() {
 
     private val estateViewModel: EstateViewModel by viewModels {
-        EstateViewModelFactory((application as EstatesApplication).repository)
-
+        EstateViewModelFactory(((application as EstatesApplication).repository), ((application as EstatesApplication).imageRepository))
     }
 
-    private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSucces ->
-        if (isSucces) {
+
+    private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+        if (isSuccess) {
             latestTmpUri?.let {
-                selectedImageUri.add(it)
+                selectedImageUri.add(it.toString())
                 adapter.addSelectedImages(selectedImageUri)
             }
 
         }
     }
 
-    val selectImagesActivityResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private val selectImagesActivityResult = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
             uri?.let {
-                selectedImageUri.add(it)
+                selectedImageUri.add(it.toString())
                 adapter.addSelectedImages(selectedImageUri)
             }
         }
+
+
+
 
     @BindView((R.id.add_activity_estate))
     lateinit var txtEstateType: EditText
@@ -80,10 +76,11 @@ class AddEstateActivity : AppCompatActivity() {
     lateinit var takePicBtn : Button
 
     lateinit var estate: Estate.EstateEntity
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: ImageRecyclerViewAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ImageRecyclerViewAdapter
     private var latestTmpUri: Uri? = null
-    var selectedImageUri = mutableListOf<Uri>()
+    private var selectedImageUri = mutableListOf<String>()
+
 
 
 
@@ -111,19 +108,20 @@ class AddEstateActivity : AppCompatActivity() {
     }
 
     private fun addNewEstate(){
-        var estate = Estate.EstateEntity( 0,
-            Integer.parseInt(txtPrice.text.toString()),
-            txtEstateType.text.toString(),
-            txtSector.text.toString(),
-            Integer.parseInt(txtSurface.text.toString()),
-            Integer.parseInt(txtRoomNumber.text.toString()),
-            Integer.parseInt(txtBathroomNumber.text.toString()),
-            Integer.parseInt(txtBedroomNumber.text.toString()),
-            txtAddress.text.toString()
+        val estate = Estate.EstateEntity(
+            price = Integer.parseInt(txtPrice.text.toString()),
+            estateType = txtEstateType.text.toString(),
+            borough = txtSector.text.toString(),
+            surface = Integer.parseInt(txtSurface.text.toString()),
+            roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
+            bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
+            bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
+            address = txtAddress.text.toString()
 
         )
-        estateViewModel.insert(estate)
+        estateViewModel.insert(estate, selectedImageUri)
         finish()
+
     }
 
     private fun takeImage(){
@@ -136,7 +134,7 @@ class AddEstateActivity : AppCompatActivity() {
     }
 
     private fun chooseImage(){
-        selectImagesActivityResult.launch("image/*")
+        selectImagesActivityResult.launch(arrayOf("image/*"))
     }
 
     private fun getTmpFileUri(): Uri {

@@ -70,9 +70,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/detail_fragment_recycler_view"
                     android:layout_width="match_parent"
+                    android:horizontalSpacing="10dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    tools:listitem="@layout/estate_details_recyclerview_item"
                     tools:ignore="MissingConstraints">
                 </androidx.recyclerview.widget.RecyclerView>
 
