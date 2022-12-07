@@ -13,8 +13,8 @@ class ImageRepository(private val imageDao: ImageDao) {
         return imageDao.getItems(estateId)
     }
     @WorkerThread
-    suspend fun insert(image: Image){
-        imageDao.insert(image)
+    suspend fun insert(image: Image) : Long{
+       return imageDao.insert(image)
     }
 
 }

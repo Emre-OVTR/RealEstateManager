@@ -12,7 +12,7 @@ import com.openclassrooms.realestatemanager.model.Image
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Estate.EstateEntity::class, Image::class], version = 1, exportSchema = false)
+@Database(entities = [Estate::class, Image::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
  abstract class EstateRoomDatabase: RoomDatabase() {
 
@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
             INSTANCE?.let { database ->
                 scope.launch{
                     val estateDao = database.estateDao()
-                    val estate = Estate.EstateEntity(0,150000,
+                    val estate = Estate(0,150000,
                         estateType = "Flat",
                         borough = "Manhattan",
                         surface = 150,
@@ -36,7 +36,10 @@ import kotlinx.coroutines.launch
                         bathroomNumber = 2,
                         bedRoomNumber = 4,
                         address = "8 rue Jean")
-                        estateDao.insert(estate)
+          //              estateDao.insert(estate)
+                //    val imageDao = database.imageDao()
+                //    val image = Image(0,"content://media/external/images/media/1000000034" , estate.id)
+                //    imageDao.insert(image)
                 }
             }
         }

@@ -424,6 +424,22 @@
                 app:layout_constraintStart_toEndOf="@+id/detail_fragment_location_zip"
                 app:layout_constraintTop_toTopOf="@+id/detail_fragment_location_city" />
 
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/detail_fragment_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/space_between_elements"
+        android:clickable="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        map:cameraZoom="17"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@id/detail_fragment_location_city"
+        map:liteMode="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

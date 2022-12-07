@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.openclassrooms.realestatemanager.EstateDetailsRecyclerViewAdapter
 import com.openclassrooms.realestatemanager.EstatesApplication
 import com.openclassrooms.realestatemanager.R
@@ -16,10 +19,13 @@ import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-class EstateDetailsActivity : AppCompatActivity() {
+class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-
+    private lateinit var mMap: GoogleMap
     @BindView((R.id.detail_fragment_surface))
     lateinit var textSurface : TextView
     @BindView((R.id.detail_fragment_rooms))
@@ -40,7 +46,7 @@ class EstateDetailsActivity : AppCompatActivity() {
         EstateViewModelFactory(((application as EstatesApplication).repository), ((application as EstatesApplication).imageRepository))
     }
 
-    lateinit var estate: Estate.EstateEntity
+    lateinit var estate: Estate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,7 @@ class EstateDetailsActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         this.configureRecyclerView()
 
-        estate = intent.getSerializableExtra(ESTATE) as Estate.EstateEntity
+        estate = intent.getSerializableExtra(ESTATE) as Estate
 
         textSurface.text = estate.surface.toString()
         textNumberOfRooms.text = estate.roomNumber.toString()
@@ -60,10 +66,12 @@ class EstateDetailsActivity : AppCompatActivity() {
 
         val image : MutableList<Image> = ArrayList()
         estateViewModel.getImages(estate.id).observe(this) { dbImage ->
-            dbImage.let { image.add(it[0]) }
+            dbImage.let { image.addAll(it)}
             adapter.getImage(image)
         }
 
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.detail_fragment_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
     }
 
@@ -77,6 +85,13 @@ class EstateDetailsActivity : AppCompatActivity() {
         adapter = EstateDetailsRecyclerViewAdapter()
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }
 

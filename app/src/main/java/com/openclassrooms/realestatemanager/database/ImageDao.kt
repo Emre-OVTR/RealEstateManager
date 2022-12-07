@@ -14,5 +14,5 @@ interface ImageDao {
     fun getItems(estateId:Long): Flow<List<Image>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(image: Image)
+    suspend fun insert(image: Image) : Long
 }

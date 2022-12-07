@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
     }
 
     override fun onBindViewHolder(holder: EstateDetailsViewHolder, position: Int)  {
-        val image = uriOfEstateImage[position]
+        val image =uriOfEstateImage[position]
         holder.bind(image)
      //  val uri : Uri  = Uri.parse(Uri.parse(image.imageUri).path)
     //    holder.picture.setImageURI(uri)
@@ -37,6 +38,7 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
    //     return uriOfEstateImage[position]
   //  }
 
+   @SuppressLint("NotifyDataSetChanged")
    fun getImage(images : List<Image>){
        this.uriOfEstateImage = images as MutableList<Image>
         this.notifyDataSetChanged()

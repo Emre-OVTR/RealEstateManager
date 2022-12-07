@@ -90,12 +90,11 @@
         app:layout_constraintWidth_percent=".49"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_estate"
+        <Spinner
+            android:id="@+id/estateType_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/activity_add_estate_type_hint"
-            android:inputType="text"
             />
 
     </LinearLayout>
