@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -65,6 +66,8 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         textAddress.text = estate.address
 
 
+
+
         val image : MutableList<Image> = ArrayList()
         estateViewModel.getImages(estate.id).observe(this) { dbImage ->
             dbImage.let { image.addAll(it)}
@@ -74,11 +77,19 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.detail_fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
+
     }
 
     companion object{
         const val ESTATE = "ESTATE"
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_estate_details_appbar, menu
+        )
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun configureRecyclerView(){

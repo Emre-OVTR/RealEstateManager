@@ -66,6 +66,7 @@
     <string name="detail_fragment_no_image_available">This estate has no images yet</string>
     <string name="title_activity_maps_fragment">MapsFragment</string>
     <string name="api_key">AIzaSyDe-dNNRExJ7sDeg9pRVWxAMcE5421i-so</string>
+    <string name="edit">edit</string>
 
     <!-- ESTATE LIST FRAGMENT-->
 
