@@ -22,6 +22,7 @@ import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.Place
 
 class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -89,7 +90,9 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val sydney = LatLng(-34.0, 151.0)
+        val latitude : Double = estate.latitude
+        val longitude : Double = estate.longitude
+        val sydney = LatLng(latitude, longitude)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }

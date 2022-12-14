@@ -35,7 +35,8 @@ import kotlinx.coroutines.launch
                         roomNumber = 8,
                         bathroomNumber = 2,
                         bedRoomNumber = 4,
-                        address = "8 rue Jean")
+                        address = "8 rue Jean",
+                    longitude = 34.00, latitude = 34.00)
           //              estateDao.insert(estate)
                 //    val imageDao = database.imageDao()
                 //    val image = Image(0,"content://media/external/images/media/1000000034" , estate.id)

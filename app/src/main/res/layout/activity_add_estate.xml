@@ -254,12 +254,12 @@
         android:paddingBottom="@dimen/space_between_elements"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_address"
+        <fragment
+            android:id="@+id/autocomplete_fragment1"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/activity_add_estate_address_hint"
-            />
+            android:layout_height="wrap_content"/>
+
 
     </LinearLayout>
 
@@ -273,11 +273,11 @@
         android:paddingBottom="@dimen/space_between_elements"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_add_address"
+        <TextView
+            android:id="@+id/add_activity_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/activity_add_estate_add_address_hint"
+            android:hint="@string/activity_add_estate_address_hint"
             />
 
     </LinearLayout>

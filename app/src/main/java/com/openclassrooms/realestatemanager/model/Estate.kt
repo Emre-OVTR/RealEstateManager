@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -22,6 +23,8 @@ data class Estate(
     val roomNumber: Int,
     val bathroomNumber: Int,
     val bedRoomNumber: Int,
-    val address: String
+    val address: String,
+    val longitude : Double,
+    val latitude : Double
 ): Serializable
 

@@ -6,10 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +17,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.openclassrooms.realestatemanager.*
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
+import kotlinx.android.synthetic.main.activity_add_estate.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -79,7 +84,7 @@ class AddEstateActivity : AppCompatActivity() {
     @BindView((R.id.add_activity_bedroom_number))
     lateinit var txtBedroomNumber: EditText
     @BindView((R.id.add_activity_address))
-    lateinit var txtAddress: EditText
+    lateinit var txtAddress: TextView
     @BindView((R.id.add_activity_sector_address))
     lateinit var txtSector: EditText
     @BindView((R.id.add_activity_save))
@@ -96,6 +101,7 @@ class AddEstateActivity : AppCompatActivity() {
 
     private lateinit var spinner : Spinner
     private var listOfItems = EstateType.values()
+    private var locationList = mutableListOf<LatLng>()
 
 
 
@@ -111,6 +117,55 @@ class AddEstateActivity : AppCompatActivity() {
         spinner = findViewById(R.id.estateType_spinner)
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfItems )
         spinner.adapter = arrayAdapter
+
+
+        val apiKey : String = getString(R.string.api_key)
+        if (!Places.isInitialized()){
+            Places.initialize(applicationContext, apiKey)
+        }
+
+        val autocompleteSupportFragment1 = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment1) as AutocompleteSupportFragment?
+        autocompleteSupportFragment1!!.setTypeFilter(TypeFilter.ADDRESS)
+        autocompleteSupportFragment1.setPlaceFields(
+            listOf(
+                Place.Field.NAME,
+                Place.Field.ADDRESS,
+                Place.Field.PHONE_NUMBER,
+                Place.Field.LAT_LNG,
+                Place.Field.OPENING_HOURS,
+                Place.Field.RATING,
+                Place.Field.USER_RATINGS_TOTAL
+            )
+        )
+
+        autocompleteSupportFragment1.setOnPlaceSelectedListener(object: PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                val textView = findViewById<TextView>(R.id.add_activity_address)
+
+                val name = place.name
+                val address = place.address
+                val phone = place.phoneNumber
+                val latLng = place.latLng
+                val latitude = latLng?.latitude
+                val longitude = latLng?.longitude
+
+                val isOpenStatus : String = if(place.isOpen == true){
+                    "Open"
+                } else {
+                    "Closed"
+                }
+
+                val rating = place.rating
+                val userRatings = place.userRatingsTotal
+
+                textView.text =
+                    "Address: $address "
+                locationList.add(latLng)
+            }
+            override fun onError(status: Status) {
+                Toast.makeText(applicationContext, "Some error occrurred", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setOnClickListeners(){
@@ -136,9 +191,13 @@ class AddEstateActivity : AppCompatActivity() {
             roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
             bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
             bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
-            address = txtAddress.text.toString()
+            address = txtAddress.text.toString(),
+            latitude = locationList[0].latitude,
+            longitude = locationList[0].longitude
 
         )
+
+
         estateViewModel.insert(estate, selectedImageUri)
         finish()
 
