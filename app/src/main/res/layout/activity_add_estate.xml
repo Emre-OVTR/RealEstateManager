@@ -282,99 +282,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/add_activity_sector_address_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/add_activity_add_address_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingBottom="@dimen/space_between_elements"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_sector_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/activity_add_estate_sector_address_hint"
-            />
-
-    </LinearLayout>
-
-    <!-- ADDRESS CITY / ZIP / STATE -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/address_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_activity_sector_address_layout"
-        >
-
-        <LinearLayout
-            android:id="@+id/add_activity_city_address_layout"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent=".32"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingBottom="@dimen/space_between_elements"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_activity_city_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/activity_add_estate_city_address_hint"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/add_activity_zip_address_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/space_between_elements"
-            app:layout_constraintEnd_toStartOf="@id/add_activity_country_address_layout"
-            app:layout_constraintStart_toEndOf="@id/add_activity_city_address_layout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent=".32">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_activity_zip_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/activity_add_estate_zip_address_hint"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/add_activity_country_address_layout"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent=".32"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingBottom="@dimen/space_between_elements"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_activity_country_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/activity_add_estate_country_address_hint"
-                />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     <TextView
         android:id="@+id/title_nearby"
         android:layout_width="match_parent"
@@ -386,7 +293,7 @@
         android:textSize="@dimen/size_text_big"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_line"
+        app:layout_constraintTop_toBottomOf="@id/add_activity_add_address_layout"
         />
 
     <View

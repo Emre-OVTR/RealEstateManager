@@ -26,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
+import kotlinx.android.synthetic.main.activity_estate_details.*
 
 class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -46,6 +47,12 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var textDescription : TextView
     @BindView((R.id.park_image))
     lateinit var imagePark : ImageView
+    @BindView((R.id.shop_image))
+    lateinit var shopImage: ImageView
+    @BindView((R.id.school_image))
+    lateinit var schoolImage: ImageView
+    @BindView((R.id.highway_image))
+    lateinit var highwayImage: ImageView
     private  lateinit var recyclerview : RecyclerView
     private lateinit var adapter : EstateDetailsRecyclerViewAdapter
     private val estateViewModel: EstateViewModel by viewModels {
@@ -68,6 +75,31 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         textNumberOfBathrooms.text = estate.bathroomNumber.toString()
         textNumberOfBedrooms.text = estate.bedRoomNumber.toString()
         textAddress.text = estate.address
+        textDescription.text = estate.description
+
+        if (estate.isNearParks){
+            park_image.setImageResource(R.drawable.ic_baseline_check_circle_24)
+        } else {
+            park_image.setImageResource(R.drawable.ic_baseline_clear_24)
+        }
+        if (estate.isNearHighway){
+            highwayImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+        } else {
+            highwayImage.setImageResource(R.drawable.ic_baseline_clear_24)
+        }
+        if (estate.isNearSchools){
+            schoolImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+        } else {
+            schoolImage.setImageResource(R.drawable.ic_baseline_clear_24)
+        }
+        if (estate.isNearShops){
+            shopImage.setImageResource(R.drawable.ic_baseline_check_circle_24)
+        } else {
+            shopImage.setImageResource(R.drawable.ic_baseline_clear_24)
+        }
+
+
+
 
 
 

@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -94,11 +95,12 @@ class AddEstateActivity : AppCompatActivity() {
     @BindView((R.id.add_activity_bedroom_number))
     lateinit var txtBedroomNumber: EditText
 
+    @BindView((R.id.add_activity_desc))
+    lateinit var txtDescription: EditText
     @BindView((R.id.add_activity_address))
     lateinit var txtAddress: TextView
 
-    @BindView((R.id.add_activity_sector_address))
-    lateinit var txtSector: EditText
+
 
     @BindView((R.id.add_activity_save))
     lateinit var saveBtn: FloatingActionButton
@@ -118,6 +120,15 @@ class AddEstateActivity : AppCompatActivity() {
     private lateinit var spinner: Spinner
     private var listOfItems = EstateType.values()
     private var locationList = mutableListOf<LatLng>()
+
+    @BindView((R.id.nearby_parks))
+    lateinit var parkCheckBox: CheckBox
+    @BindView((R.id.nearby_highway))
+    lateinit var hwCheckBox : CheckBox
+    @BindView((R.id.nearby_schools))
+    lateinit var schoolsCheckBox: CheckBox
+    @BindView((R.id.nearby_shops))
+    lateinit var shopsCheckBox: CheckBox
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,6 +194,10 @@ class AddEstateActivity : AppCompatActivity() {
                     .show()
             }
         })
+
+        //checkbox
+
+
     }
 
     private fun setOnClickListeners() {
@@ -205,16 +220,23 @@ class AddEstateActivity : AppCompatActivity() {
         val estate = Estate(
             price = Integer.parseInt(txtPrice.text.toString()),
             estateType = spinner.selectedItem.toString(),
-            borough = txtSector.text.toString(),
             surface = Integer.parseInt(txtSurface.text.toString()),
             roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
             bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
             bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
             address = txtAddress.text.toString(),
             latitude = locationList[0].latitude,
-            longitude = locationList[0].longitude
+            longitude = locationList[0].longitude,
+            description = txtDescription.text.toString(),
+            isNearParks = parkCheckBox.isChecked,
+            isNearHighway =hwCheckBox.isChecked,
+            isNearSchools = schoolsCheckBox.isChecked,
+            isNearShops = shopsCheckBox.isChecked
+
+
 
         )
+
 
         if (estate.roomNumber < estate.bedRoomNumber){
             Toast.makeText(applicationContext,"Room number should be higher than bedroom number", Toast.LENGTH_LONG).show()
@@ -255,6 +277,7 @@ class AddEstateActivity : AppCompatActivity() {
         }
         return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
     }
+
 
 
 

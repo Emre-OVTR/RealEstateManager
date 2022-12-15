@@ -30,13 +30,14 @@ import kotlinx.coroutines.launch
                     val estateDao = database.estateDao()
                     val estate = Estate(0,150000,
                         estateType = "Flat",
-                        borough = "Manhattan",
+                       // borough = "Manhattan",
+                        description = "bdchbchbcskbhdbckbbshbcdjk",
                         surface = 150,
                         roomNumber = 8,
                         bathroomNumber = 2,
                         bedRoomNumber = 4,
                         address = "8 rue Jean",
-                    longitude = 34.00, latitude = 34.00)
+                    longitude = 34.00, latitude = 34.00, isNearHighway = true, isNearShops = true, isNearParks = true, isNearSchools = true)
           //              estateDao.insert(estate)
                 //    val imageDao = database.imageDao()
                 //    val image = Image(0,"content://media/external/images/media/1000000034" , estate.id)
