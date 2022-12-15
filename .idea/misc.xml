@@ -7,10 +7,12 @@
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/drawable/baseline_settings_backup_restore_24.xml" value="0.24" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout-v21/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_add_estate.xml" value="0.21629213483146068" />
+        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_edit_estate.xml" value="0.1" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_estate_details.xml" value="0.33" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_maps_fragment.xml" value="0.2877297990594271" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/activity_second.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/edit_estate_mode.xml" value="0.14020058503969912" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/estate_details_recyclerview_item.xml" value="0.240625" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/estate_info.xml" value="0.25" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_list.xml" value="0.358695652173913" />

@@ -60,7 +60,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
          //   }
 
             estateItemView.text = estate.estate.estateType
-            estateItemPrice.text = estate.estate.price.toString()
+            estateItemPrice.text =  "$${estate.estate.price}"
             estateItemBorough.text = estate.estate.borough
 
             itemView.setOnClickListener{

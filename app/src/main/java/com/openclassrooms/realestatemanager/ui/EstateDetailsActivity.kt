@@ -2,6 +2,8 @@ package com.openclassrooms.realestatemanager.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -27,6 +29,8 @@ import com.google.android.libraries.places.api.model.Place
 
 class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+  //  @BindView((R.id.action_edit))
+  //  lateinit var editBtn : Button
     private lateinit var mMap: GoogleMap
     @BindView((R.id.detail_fragment_surface))
     lateinit var textSurface : TextView
@@ -59,7 +63,7 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         estate = intent.getSerializableExtra(ESTATE) as Estate
 
-        textSurface.text = estate.surface.toString()
+        textSurface.text = "${estate.surface} m²"
         textNumberOfRooms.text = estate.roomNumber.toString()
         textNumberOfBathrooms.text = estate.bathroomNumber.toString()
         textNumberOfBedrooms.text = estate.bedRoomNumber.toString()
@@ -76,6 +80,20 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.detail_fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+       return when(item.itemId){
+           R.id.action_edit ->{
+              setContentView(R.layout.edit_estate_mode)
+               true
+           }
+           else -> super.onOptionsItemSelected(item)
+       }
+
 
 
 
