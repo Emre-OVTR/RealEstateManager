@@ -28,6 +28,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.3'
         classpath 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
 
 
         // NOTE: Do not place your application dependencies here; they belong

@@ -1,23 +1,21 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.datatransport.runtime.BuildConfig
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -26,24 +24,19 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.openclassrooms.realestatemanager.*
+import com.openclassrooms.realestatemanager.EstateType
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
-import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
-import com.openclassrooms.realestatemanager.view.EstateViewModelFactory
-import kotlinx.android.synthetic.main.activity_add_estate.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
 
 
+@AndroidEntryPoint
 class AddEstateActivity : AppCompatActivity() {
 
-    private val estateViewModel: EstateViewModel by viewModels {
-        EstateViewModelFactory(
-            ((application as EstatesApplication).repository),
-            ((application as EstatesApplication).imageRepository)
-        )
-    }
+    private val estateViewModel: EstateViewModel by viewModels()
 
 
     private val takeImageResult =
@@ -77,50 +70,26 @@ class AddEstateActivity : AppCompatActivity() {
 
     }
 
-
-    // @BindView((R.id.add_activity_estate))
-    // lateinit var txtEstateType: EditText
     @BindView((R.id.add_activity_price))
     lateinit var txtPrice: EditText
-
     @BindView((R.id.add_activity_surface))
     lateinit var txtSurface: EditText
-
     @BindView((R.id.add_activity_room_number))
     lateinit var txtRoomNumber: EditText
-
     @BindView((R.id.add_activity_bathroom_number))
     lateinit var txtBathroomNumber: EditText
-
     @BindView((R.id.add_activity_bedroom_number))
     lateinit var txtBedroomNumber: EditText
-
     @BindView((R.id.add_activity_desc))
     lateinit var txtDescription: EditText
     @BindView((R.id.add_activity_address))
     lateinit var txtAddress: TextView
-
-
-
     @BindView((R.id.add_activity_save))
     lateinit var saveBtn: FloatingActionButton
-
     @BindView((R.id.add_activity_choose_pic))
     lateinit var choosePicBtn: Button
-
     @BindView((R.id.add_activity_take_pic))
     lateinit var takePicBtn: Button
-
-    //lateinit var estate: Estate
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ImageRecyclerViewAdapter
-    private var latestTmpUri: Uri? = null
-    private var selectedImageUri = mutableListOf<String>()
-
-    private lateinit var spinner: Spinner
-    private var listOfItems = EstateType.values()
-    private var locationList = mutableListOf<LatLng>()
-
     @BindView((R.id.nearby_parks))
     lateinit var parkCheckBox: CheckBox
     @BindView((R.id.nearby_highway))
@@ -129,6 +98,15 @@ class AddEstateActivity : AppCompatActivity() {
     lateinit var schoolsCheckBox: CheckBox
     @BindView((R.id.nearby_shops))
     lateinit var shopsCheckBox: CheckBox
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ImageRecyclerViewAdapter
+    private var latestTmpUri: Uri? = null
+    private var selectedImageUri = mutableListOf<String>()
+    private lateinit var spinner: Spinner
+    private var listOfItems = EstateType.values()
+    private var locationList = mutableListOf<LatLng>()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,7 +120,6 @@ class AddEstateActivity : AppCompatActivity() {
         spinner = findViewById(R.id.estateType_spinner)
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfItems)
         spinner.adapter = arrayAdapter
-
 
         val apiKey: String = getString(R.string.api_key)
         if (!Places.isInitialized()) {
@@ -194,17 +171,25 @@ class AddEstateActivity : AppCompatActivity() {
                     .show()
             }
         })
-
-        //checkbox
-
-
     }
 
     private fun setOnClickListeners() {
         takePicBtn.setOnClickListener { takeImage() }
         choosePicBtn.setOnClickListener { chooseImage() }
-        saveBtn.setOnClickListener { addNewEstate() }
-
+        saveBtn.setOnClickListener {
+            when{
+                txtPrice.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please write the price of this Estate", Toast.LENGTH_LONG).show()
+                txtRoomNumber.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please enter number of rooms in this Estate", Toast.LENGTH_LONG).show()
+                txtBedroomNumber.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please enter number of Bedrooms in this Estate", Toast.LENGTH_LONG).show()
+                txtBathroomNumber.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please enter number of Bathrooms in this Estate", Toast.LENGTH_LONG).show()
+                txtSurface.text.isNullOrBlank()  -> Toast.makeText(applicationContext,"Please enter surface of this Estate", Toast.LENGTH_LONG).show()
+                txtDescription.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please write description for this Estate", Toast.LENGTH_LONG).show()
+                txtAddress.text.isNullOrBlank() -> Toast.makeText(applicationContext,"Please select an address for this Estate", Toast.LENGTH_LONG).show()
+                Integer.parseInt(txtRoomNumber.text.toString()) < Integer.parseInt(txtBedroomNumber.text.toString()) -> Toast.makeText(applicationContext,"Room number should be higher than bedroom number", Toast.LENGTH_LONG).show()
+                Integer.parseInt(txtRoomNumber.text.toString()) < Integer.parseInt(txtBathroomNumber.text.toString()) -> Toast.makeText(applicationContext, "Room Number should be higher than bathroom number", Toast.LENGTH_LONG).show()
+                Integer.parseInt(txtBedroomNumber.text.toString()) < Integer.parseInt(txtBathroomNumber.text.toString()) -> Toast.makeText(applicationContext, "Bedroom Number should be higher than bathroom number", Toast.LENGTH_LONG).show()
+                selectedImageUri.size == 0 -> Toast.makeText(applicationContext, "Please add at least one picture", Toast.LENGTH_LONG).show()
+            else-> addNewEstate() }}
     }
 
     private fun configureRecyclerView() {
@@ -216,7 +201,6 @@ class AddEstateActivity : AppCompatActivity() {
     }
 
     private fun addNewEstate() {
-
         val estate = Estate(
             price = Integer.parseInt(txtPrice.text.toString()),
             estateType = spinner.selectedItem.toString(),
@@ -232,30 +216,10 @@ class AddEstateActivity : AppCompatActivity() {
             isNearHighway =hwCheckBox.isChecked,
             isNearSchools = schoolsCheckBox.isChecked,
             isNearShops = shopsCheckBox.isChecked
-
-
-
         )
-
-
-        if (estate.roomNumber < estate.bedRoomNumber){
-            Toast.makeText(applicationContext,"Room number should be higher than bedroom number", Toast.LENGTH_LONG).show()
-        } else if (estate.roomNumber < estate.bathroomNumber){
-            Toast.makeText(applicationContext, "Room Number should be higher than bathroom number", Toast.LENGTH_LONG).show()
-        } else if(estate.bedRoomNumber < estate.bathroomNumber){
-            Toast.makeText(applicationContext, "Bedroom Number should be higher than bathroom number", Toast.LENGTH_LONG).show()
-        } else if (estate.address.isNullOrBlank()) {
-            Toast.makeText(applicationContext, "Please select an address", Toast.LENGTH_LONG).show()
-        } else if ( selectedImageUri.size == 0) {
-            Toast.makeText(applicationContext, "Please add at least one picture", Toast.LENGTH_LONG).show()
-        } else {
-
         estateViewModel.insert(estate, selectedImageUri)
         finish()
     }
-
-
-}
 
     private fun takeImage(){
         lifecycleScope.launchWhenStarted {

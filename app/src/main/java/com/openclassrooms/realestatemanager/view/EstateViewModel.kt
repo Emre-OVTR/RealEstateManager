@@ -7,9 +7,12 @@ import com.openclassrooms.realestatemanager.model.FullEstate
 import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.repos.EstateRepository
 import com.openclassrooms.realestatemanager.repos.ImageRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EstateViewModel(private val repository : EstateRepository, private val imageRepository: ImageRepository) : ViewModel() {
+@HiltViewModel
+class EstateViewModel @Inject constructor(private val repository : EstateRepository, private val imageRepository: ImageRepository) : ViewModel() {
 
 
     val allEstates: LiveData<List<FullEstate>> = repository.allEstates.asLiveData()
@@ -30,12 +33,4 @@ class EstateViewModel(private val repository : EstateRepository, private val ima
     }
 }
 
-class EstateViewModelFactory(private val repository: EstateRepository, private val imageRepository: ImageRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EstateViewModel::class.java)){
-            @Suppress("UNCHECKED_CAST")
-            return EstateViewModel(repository, imageRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+
