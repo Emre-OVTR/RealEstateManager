@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
@@ -19,6 +20,10 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateDetailsViewHolder {
         val view  = LayoutInflater.from(parent.context)
             .inflate(R.layout.estate_details_recyclerview_item, parent, false)
+        view.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         return EstateDetailsViewHolder(view)
     }
 

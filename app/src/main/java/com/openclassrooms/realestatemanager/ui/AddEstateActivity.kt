@@ -1,21 +1,24 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.android.datatransport.runtime.BuildConfig
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -31,9 +34,7 @@ import com.openclassrooms.realestatemanager.view.EstateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 
 
@@ -197,11 +198,29 @@ class AddEstateActivity : AppCompatActivity() {
     }
 
     private fun configureRecyclerView() {
-        recyclerView = findViewById(R.id.add_activity_recycler_view)
+   //     recyclerView = findViewById(R.id.add_activity_recycler_view)
+   //     adapter = ImageRecyclerViewAdapter()
+    //    recyclerView.adapter = adapter
+     //   recyclerView.layoutManager =
+       //     LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val viewPager = findViewById<ViewPager2>(R.id.add_activity_recycler_view)
+        viewPager.apply {
+            clipChildren = false
+            clipToPadding = false
+            offscreenPageLimit = 3
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
         adapter = ImageRecyclerViewAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        viewPager.adapter = adapter
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
+            page.scaleY = (0.80f + r * 0.20f)
+        }
+
+        viewPager.setPageTransformer(compositePageTransformer)
     }
 
     private fun addNewEstate() {

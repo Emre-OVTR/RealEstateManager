@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +10,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -91,10 +96,28 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun configureRecyclerView(){
-        recyclerview = findViewById(R.id.detail_fragment_recycler_view)
+  //      recyclerview = findViewById(R.id.detail_fragment_recycler_view)
+  //      adapter = EstateDetailsRecyclerViewAdapter()
+  //      recyclerview.adapter = adapter
+  //      recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val viewPager = findViewById<ViewPager2>(R.id.detail_fragment_recycler_view)
+        viewPager.apply {
+            clipChildren = false
+            clipToPadding = false
+            offscreenPageLimit = 3
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
         adapter = EstateDetailsRecyclerViewAdapter()
-        recyclerview.adapter = adapter
-        recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        viewPager.adapter = adapter
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
+            page.scaleY = (0.80f + r * 0.20f)
+        }
+
+        viewPager.setPageTransformer(compositePageTransformer)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

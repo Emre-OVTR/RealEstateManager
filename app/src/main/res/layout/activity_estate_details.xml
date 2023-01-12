@@ -54,6 +54,8 @@
                 android:id="@+id/detail_fragment_image_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 app:layout_constraintTop_toBottomOf="@id/detail_fragment_text_media"
                 >
 
@@ -67,16 +69,16 @@
                     android:visibility="gone"
                     tools:ignore="MissingConstraints" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/detail_fragment_recycler_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="170dp"
                     android:horizontalSpacing="10dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="180dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:listitem="@layout/estate_details_recyclerview_item"
                     tools:ignore="MissingConstraints">
-                </androidx.recyclerview.widget.RecyclerView>
+                </androidx.viewpager2.widget.ViewPager2>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -257,7 +259,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/small_space_between_items"
-                    android:src="@drawable/ic_baseline_location_city_24" />
+                    android:src="@drawable/ic_baseline_location_city_24"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/vicinity_text"
@@ -285,7 +288,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorGreyText"
-                        android:text="@string/activity_add_estate_parks" />
+                        android:text="@string/activity_add_estate_parks"
+                        tools:ignore="MissingConstraints" />
 
                     <ImageView
                         android:id="@+id/park_image"

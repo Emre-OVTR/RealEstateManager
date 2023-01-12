@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
+
 
 class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>() {
 
@@ -17,6 +19,10 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view  = LayoutInflater.from(parent.context)
             .inflate(R.layout.image_recyclerview_item, parent, false)
+        view.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         return ImageViewHolder(view)
     }
 
