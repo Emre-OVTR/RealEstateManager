@@ -11,6 +11,10 @@ import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 
 @Database(entities = [Estate::class, Image::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
@@ -37,7 +41,9 @@ import kotlinx.coroutines.launch
                         bathroomNumber = 2,
                         bedRoomNumber = 4,
                         address = "8 rue Jean",
-                    longitude = 34.00, latitude = 34.00, isNearHighway = true, isNearShops = true, isNearParks = true, isNearSchools = true)
+                    longitude = 34.00, latitude = 34.00, isNearHighway = true, isNearShops = true, isNearParks = true, isNearSchools = true,
+                    creationDate = LocalDate.now()
+                    )
           //              estateDao.insert(estate)
                 //    val imageDao = database.imageDao()
                 //    val image = Image(0,"content://media/external/images/media/1000000034" , estate.id)

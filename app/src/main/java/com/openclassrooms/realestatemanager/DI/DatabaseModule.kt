@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.DI
 
 import android.content.Context
 import androidx.room.Room
+import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.database.EstateDao
 import com.openclassrooms.realestatemanager.database.EstateRoomDatabase
 import com.openclassrooms.realestatemanager.database.ImageDao

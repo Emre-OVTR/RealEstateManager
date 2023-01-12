@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_estate_details.*
 class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
+    @BindView((R.id.detail_fragment_added_on))
+    lateinit var textDate : TextView
     @BindView((R.id.detail_fragment_surface))
     lateinit var textSurface : TextView
     @BindView((R.id.detail_fragment_rooms))
@@ -115,6 +117,7 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun displayEstate(){
         estate = intent.getSerializableExtra(ESTATE) as Estate
 
+        textDate.text = estate.creationDate.toString()
         textSurface.text = "${estate.surface} m²"
         textNumberOfRooms.text = estate.roomNumber.toString()
         textNumberOfBathrooms.text = estate.bathroomNumber.toString()

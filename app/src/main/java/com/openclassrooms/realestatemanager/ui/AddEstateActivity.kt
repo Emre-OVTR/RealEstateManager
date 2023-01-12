@@ -31,6 +31,10 @@ import com.openclassrooms.realestatemanager.view.EstateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 
 @AndroidEntryPoint
@@ -215,7 +219,8 @@ class AddEstateActivity : AppCompatActivity() {
             isNearParks = parkCheckBox.isChecked,
             isNearHighway =hwCheckBox.isChecked,
             isNearSchools = schoolsCheckBox.isChecked,
-            isNearShops = shopsCheckBox.isChecked
+            isNearShops = shopsCheckBox.isChecked,
+            creationDate = LocalDate.now(ZoneId.of("America/Tortola"))
         )
         estateViewModel.insert(estate, selectedImageUri)
         finish()
@@ -239,7 +244,7 @@ class AddEstateActivity : AppCompatActivity() {
             createNewFile()
             deleteOnExit()
         }
-        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+        return FileProvider.getUriForFile(applicationContext, "${com.openclassrooms.realestatemanager.BuildConfig.APPLICATION_ID}.provider", tmpFile)
     }
 
 
