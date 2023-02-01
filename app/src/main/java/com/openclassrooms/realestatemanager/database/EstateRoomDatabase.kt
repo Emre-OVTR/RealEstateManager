@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
@@ -33,7 +34,7 @@ import java.util.*
                 scope.launch{
                     val estateDao = database.estateDao()
                     val estate = Estate(0,150000,
-                        estateType = "Flat",
+                        estateTypePosition = 1,
                        // borough = "Manhattan",
                         description = "bdchbchbcskbhdbckbbshbcdjk",
                         surface = 150,
@@ -42,7 +43,9 @@ import java.util.*
                         bedRoomNumber = 4,
                         address = "8 rue Jean",
                     longitude = 34.00, latitude = 34.00, isNearHighway = true, isNearShops = true, isNearParks = true, isNearSchools = true,
-                    creationDate = LocalDate.now()
+                    creationDate = LocalDate.now(),
+                        estateTypeName = "Flat",
+                        //coordinate = "2"
                     )
           //              estateDao.insert(estate)
                 //    val imageDao = database.imageDao()

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.openclassrooms.realestatemanager.R
 
 class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>() {
 
-    private var selectedImageUri = listOf<String>()
+    private var selectedImageUri = mutableListOf<String>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -29,6 +30,9 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
        val imageUri = selectedImageUri[position]
         holder.picture.setImageURI(Uri.parse(imageUri))
+        holder.button.setOnClickListener {
+            selectedImageUri.remove(imageUri)
+            addSelectedImages(selectedImageUri)}
     }
 
 
@@ -37,8 +41,8 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addSelectedImages(images: List<String>) {
+
+    fun addSelectedImages(images: MutableList<String>) {
         this.selectedImageUri = images
         notifyDataSetChanged()
     }
@@ -46,6 +50,7 @@ class ImageRecyclerViewAdapter: RecyclerView.Adapter<ImageRecyclerViewAdapter.Im
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val picture : ImageView = itemView.findViewById(R.id.imageView)
+        val button : ImageButton = itemView.findViewById(R.id.button1)
 
     }
 }

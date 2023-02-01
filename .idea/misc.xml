@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/emret/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.2877297990594271" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/drawable/baseline_arrow_drop_down_black_24.xml" value="0.2715" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/drawable/baseline_settings_backup_restore_24.xml" value="0.24" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout-v21/activity_main.xml" value="0.358695652173913" />
@@ -18,7 +19,7 @@
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_list.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_loan.xml" value="0.358695652173913" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/fragment_map.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/image_recyclerview_item.xml" value="0.2967079948696024" />
+        <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/image_recyclerview_item.xml" value="0.1" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/imagerecyclerview_item.xml" value="0.2967079948696024" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/layout/recyclerview_item.xml" value="0.27049180327868855" />
         <entry key="..\:/Users/emret/Desktop/RealEstateManager/app/src/main/res/menu/activity_estate_details_appbar.xml" value="0.2868747327917914" />

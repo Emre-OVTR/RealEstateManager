@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
@@ -77,7 +78,7 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
        return when(item.itemId){
            R.id.action_edit ->{
-              setContentView(R.layout.edit_estate_mode)
+              editEstate(estate)
                true
            }
            else -> super.onOptionsItemSelected(item)
@@ -86,7 +87,6 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object{
         const val ESTATE = "ESTATE"
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -138,8 +138,8 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun displayEstate(){
-        estate = intent.getSerializableExtra(ESTATE) as Estate
 
+        estate = intent.getSerializableExtra(ESTATE) as Estate
         textDate.text = estate.creationDate.toString()
         textSurface.text = "${estate.surface} m²"
         textNumberOfRooms.text = estate.roomNumber.toString()
@@ -172,6 +172,12 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun configureMap(){
         val mapFragment = supportFragmentManager.findFragmentById(R.id.detail_fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    private fun editEstate(estate: Estate){
+        val intent = Intent(this, AddEstateActivity::class.java)
+        intent.putExtra(AddEstateActivity.ESTATE1, estate.id)
+        startActivity(intent)
     }
 }
 

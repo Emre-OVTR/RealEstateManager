@@ -15,7 +15,8 @@ import java.util.*
 @Entity(tableName = "estate_table")
 @TypeConverters(Converters::class)
 data class Estate(
-    @SerializedName("estate")
+    //enlever la ligne 19
+ //   @SerializedName("estate")
    // var estates: List<Estate> = listOf()
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val price: Int,
@@ -24,7 +25,8 @@ data class Estate(
      val isNearShops : Boolean,
     val isNearSchools: Boolean,
     val isNearHighway: Boolean,
-    val estateType: String,
+    val estateTypePosition: Int,
+    val estateTypeName: String,
    // val borough: String,
     val surface: Int,
     val roomNumber: Int,
@@ -33,7 +35,7 @@ data class Estate(
     val address: String,
     val longitude : Double,
     val latitude : Double,
-
-    val creationDate : LocalDate
+    val creationDate : LocalDate,
+   // val coordinate : String
 ): Serializable
 

@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -19,6 +18,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.datatransport.BuildConfig
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -27,15 +27,16 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.EstateType
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
+import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.time.LocalDate
-import java.time.ZoneId
 
 
 @AndroidEntryPoint
@@ -114,68 +115,80 @@ class AddEstateActivity : AppCompatActivity() {
 
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_estate)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         ButterKnife.bind(this)
+        retrieveEstateId()
         this.configureRecyclerView()
         this.setOnClickListeners()
         // Je créer le spinner
+
         spinner = findViewById(R.id.estateType_spinner)
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfItems)
         spinner.adapter = arrayAdapter
 
-        val apiKey: String = getString(R.string.api_key)
-        if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, apiKey)
-        }
+            val apiKey: String = getString(R.string.api_key)
+            if (!Places.isInitialized()) {
+                Places.initialize(applicationContext, apiKey)
+            }
 
-        val autocompleteSupportFragment1 =
-            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment1) as AutocompleteSupportFragment?
-        autocompleteSupportFragment1!!.setTypeFilter(TypeFilter.ADDRESS)
-        autocompleteSupportFragment1.setPlaceFields(
-            listOf(
-                Place.Field.NAME,
-                Place.Field.ADDRESS,
-                Place.Field.PHONE_NUMBER,
-                Place.Field.LAT_LNG,
-                Place.Field.OPENING_HOURS,
-                Place.Field.RATING,
-                Place.Field.USER_RATINGS_TOTAL
+            val autocompleteSupportFragment1 =
+                supportFragmentManager.findFragmentById(R.id.autocomplete_fragment1) as AutocompleteSupportFragment?
+            autocompleteSupportFragment1!!.setTypeFilter(TypeFilter.ADDRESS)
+            autocompleteSupportFragment1.setPlaceFields(
+                listOf(
+                    Place.Field.NAME,
+                    Place.Field.ADDRESS,
+                    Place.Field.PHONE_NUMBER,
+                    Place.Field.LAT_LNG,
+                    Place.Field.OPENING_HOURS,
+                    Place.Field.RATING,
+                    Place.Field.USER_RATINGS_TOTAL
+                )
             )
-        )
 
-        autocompleteSupportFragment1.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                val textView = findViewById<TextView>(R.id.add_activity_address)
+            autocompleteSupportFragment1.setOnPlaceSelectedListener(object :
+                PlaceSelectionListener {
+                override fun onPlaceSelected(place: Place) {
+                    val textView = findViewById<TextView>(R.id.add_activity_address)
 
-                val name = place.name
-                val address = place.address
-                val phone = place.phoneNumber
-                val latLng = place.latLng
-                val latitude = latLng?.latitude
-                val longitude = latLng?.longitude
+                    val name = place.name
+                    val address = place.address
+                    val phone = place.phoneNumber
+                    val latLng = place.latLng
+                    val latitude = latLng?.latitude
+                    val longitude = latLng?.longitude
 
-                val isOpenStatus: String = if (place.isOpen == true) {
-                    "Open"
-                } else {
-                    "Closed"
+                    val isOpenStatus: String = if (place.isOpen == true) {
+                        "Open"
+                    } else {
+                        "Closed"
+                    }
+
+                    val rating = place.rating
+                    val userRatings = place.userRatingsTotal
+
+                    textView.text = address
+                    locationList.add(latLng)
                 }
 
-                val rating = place.rating
-                val userRatings = place.userRatingsTotal
+                override fun onError(status: Status) {
+                    Toast.makeText(applicationContext, "Some error occrurred", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
 
-                textView.text =
-                    address
-                locationList.add(latLng)
-            }
 
-            override fun onError(status: Status) {
-                Toast.makeText(applicationContext, "Some error occrurred", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+    }
+
+
+    companion object{
+        const val ESTATE1 = "ESTATE"
+
     }
 
     private fun setOnClickListeners() {
@@ -226,7 +239,7 @@ class AddEstateActivity : AppCompatActivity() {
     private fun addNewEstate() {
         val estate = Estate(
             price = Integer.parseInt(txtPrice.text.toString()),
-            estateType = spinner.selectedItem.toString(),
+            estateTypePosition = spinner.selectedItemPosition,
             surface = Integer.parseInt(txtSurface.text.toString()),
             roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
             bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
@@ -239,7 +252,9 @@ class AddEstateActivity : AppCompatActivity() {
             isNearHighway =hwCheckBox.isChecked,
             isNearSchools = schoolsCheckBox.isChecked,
             isNearShops = shopsCheckBox.isChecked,
-            creationDate = LocalDate.now(ZoneId.of("America/Tortola"))
+            creationDate = LocalDate.now(),
+            estateTypeName = spinner.selectedItem.toString(),
+            //coordinate = locationList[0]
         )
         estateViewModel.insert(estate, selectedImageUri)
         finish()
@@ -264,6 +279,84 @@ class AddEstateActivity : AppCompatActivity() {
             deleteOnExit()
         }
         return FileProvider.getUriForFile(applicationContext, "${com.openclassrooms.realestatemanager.BuildConfig.APPLICATION_ID}.provider", tmpFile)
+    }
+
+
+    private fun bind(estate: Long, image: MutableList<Image>) {
+
+
+        estateViewModel.getEstateById(estate).observe(this){ estateById ->
+            estateById.let {    txtBathroomNumber.setText(estateById.bathroomNumber.toString())
+                txtBedroomNumber.setText(estateById.bedRoomNumber.toString())
+                txtDescription.setText(estateById.description)
+                txtPrice.setText(estateById.price.toString())
+                txtRoomNumber.setText(estateById.roomNumber.toString())
+                txtAddress.setText(estateById.address)
+                txtSurface.setText(estateById.surface.toString())
+                locationList.add(LatLng(estateById.latitude, estateById.longitude))
+
+
+                if (estate != null) {
+                    if(estateById.isNearParks) parkCheckBox.isChecked = true
+                    if(estateById.isNearHighway) hwCheckBox.isChecked = true
+                    if(estateById.isNearSchools) schoolsCheckBox.isChecked = true
+                    if (estateById.isNearShops) shopsCheckBox.isChecked = true
+                }
+
+                for (i in image){
+                    selectedImageUri.addAll(listOf(i.imageUri))
+                    adapter.addSelectedImages(selectedImageUri)
+                }
+                //val imageUri : String = image[].imageUri
+               // selectedImageUri.add(imageUri)
+                //adapter.addSelectedImages(selectedImageUri)
+                spinner.setSelection(estateById.estateTypePosition)
+
+
+            }
+
+        }
+        saveBtn.setOnClickListener {
+            updateEstate()
+            finish()}
+
+    }
+
+    private fun retrieveEstateId() {
+        val estateId = intent.getLongExtra(ESTATE1, -1L)
+        val listImage: MutableList<Image> = ArrayList()
+        // val image = estate?.id?.let { Image(estateId = it, imageUri = ) }
+        estateViewModel.getImages(estateId).observe(this) { imagesById ->
+            imagesById.let { listImage.addAll(imagesById) }
+
+            if (estateId != -1L) {
+                bind(estateId, listImage)
+            }
+
+        }
+
+
+    }
+
+    private fun updateEstate(){
+       estateViewModel.updateEstate(id = intent.getLongExtra(ESTATE1, -1L), price = Integer.parseInt(txtPrice.text.toString()),
+           estateTypePosition = spinner.selectedItemPosition,
+           surface = Integer.parseInt(txtSurface.text.toString()),
+           roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
+           bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
+           bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
+           address = txtAddress.text.toString(),
+           latitude = locationList[0].latitude,
+           longitude = locationList[0].longitude,
+           description = txtDescription.text.toString(),
+           isNearParks = parkCheckBox.isChecked,
+           isNearHighway =hwCheckBox.isChecked,
+           isNearSchools = schoolsCheckBox.isChecked,
+           isNearShops = shopsCheckBox.isChecked,
+           creationDate = LocalDate.now(),
+           estateTypeName = spinner.selectedItem.toString())
+
+      // coordinate = locationList[0])
     }
 
 

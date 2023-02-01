@@ -14,10 +14,19 @@ class EstateRepository @Inject constructor(private val estateDao: EstateDao) {
     val allEstates: Flow<List<FullEstate>> = estateDao.getEstates()
 
 
+    fun getEstateById(id : Long) : Flow<Estate>{
+        return estateDao.getEstatesById(id)
+    }
     @WorkerThread
     suspend fun insert(estate: Estate) : Long {
        return estateDao.insert(estate)
     }
+
+    suspend fun update(estate: Estate){
+        return estateDao.update(estate)
+    }
+
+
 
 
 }

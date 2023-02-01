@@ -59,7 +59,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
           //      Glide.with(context).load(R.drawable.ic_no_image_available).apply(RequestOptions().centerCrop()).into(estateImage)
          //   }
 
-            estateItemView.text = estate.estate.estateType
+            estateItemView.text = estate.estate.estateTypeName
             estateItemPrice.text =  "$${estate.estate.price}"
            // estateItemBorough.text = estate.estate.borough
 
