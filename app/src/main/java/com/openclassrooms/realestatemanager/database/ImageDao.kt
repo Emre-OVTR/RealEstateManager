@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,4 +16,7 @@ interface ImageDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(image: Image) : Long
+
+    @Delete
+    suspend fun delete(image: Image)
 }

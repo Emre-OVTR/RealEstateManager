@@ -18,7 +18,6 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.android.datatransport.BuildConfig
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -27,7 +26,6 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.EstateType
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
@@ -49,7 +47,13 @@ class AddEstateActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
                 latestTmpUri?.let {
-                    selectedImageUri.add(it.toString())
+                    if(selectedImageUri.size == 0){
+                        selectedImageUri.add(Image(imageUri = it.toString(), estateId = idEstate  ))
+
+                    } else {
+                        imageToInsert.add(Image(imageUri = it.toString(), estateId = intent.getLongExtra(ESTATE1, -1L)))
+                        selectedImageUri.addAll(imageToInsert)
+                    }
                     adapter.addSelectedImages(selectedImageUri)
                 }
 
@@ -62,7 +66,13 @@ class AddEstateActivity : AppCompatActivity() {
                 //JE Convertis l'uri reçu en bitmap puis reconvertis le bitmap en uri pour acceder à l'uri sans nécessiter de permission et pouvoir réutiliser cette uri depuis n'importe ou
                 val bit: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it)
                 val tempUri: Uri = getImageUriFromBitmap(applicationContext, bit)
-                selectedImageUri.add(tempUri.toString())
+                if (selectedImageUri.size == 0){
+                    selectedImageUri.add(Image(imageUri = tempUri.toString(), estateId = idEstate))
+                } else{
+                    imageToInsert.add(Image(imageUri = it.toString(), estateId = intent.getLongExtra(ESTATE1, -1L)))
+                    selectedImageUri.addAll(imageToInsert)
+                }
+
                 adapter.addSelectedImages(selectedImageUri)
             }
         }
@@ -105,13 +115,17 @@ class AddEstateActivity : AppCompatActivity() {
     @BindView((R.id.nearby_shops))
     lateinit var shopsCheckBox: CheckBox
 
-    private lateinit var recyclerView: RecyclerView
+
     private lateinit var adapter: ImageRecyclerViewAdapter
     private var latestTmpUri: Uri? = null
-    private var selectedImageUri = mutableListOf<String>()
+    private var selectedImageUri = mutableListOf<Image>()
     private lateinit var spinner: Spinner
     private var listOfItems = EstateType.values()
     private var locationList = mutableListOf<LatLng>()
+    private var imageToDelete = mutableListOf<Image>()
+    private var imageToInsert = mutableListOf<Image>()
+    private var idEstate: Long? = null
+
 
 
 
@@ -223,7 +237,7 @@ class AddEstateActivity : AppCompatActivity() {
             offscreenPageLimit = 3
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
-        adapter = ImageRecyclerViewAdapter()
+        adapter = ImageRecyclerViewAdapter(this::onItemDelete)
         viewPager.adapter = adapter
 
         val compositePageTransformer = CompositePageTransformer()
@@ -234,6 +248,11 @@ class AddEstateActivity : AppCompatActivity() {
         }
 
         viewPager.setPageTransformer(compositePageTransformer)
+    }
+
+    private fun onItemDelete(imageUri: Image){
+        //estateViewModel.deleteImage(imageUri)
+        imageToDelete.add(imageUri)
     }
 
     private fun addNewEstate() {
@@ -255,10 +274,14 @@ class AddEstateActivity : AppCompatActivity() {
             creationDate = LocalDate.now(),
             estateTypeName = spinner.selectedItem.toString(),
             //coordinate = locationList[0]
+
         )
         estateViewModel.insert(estate, selectedImageUri)
         finish()
+
+
     }
+
 
     private fun takeImage(){
         lifecycleScope.launchWhenStarted {
@@ -291,20 +314,18 @@ class AddEstateActivity : AppCompatActivity() {
                 txtDescription.setText(estateById.description)
                 txtPrice.setText(estateById.price.toString())
                 txtRoomNumber.setText(estateById.roomNumber.toString())
-                txtAddress.setText(estateById.address)
+                txtAddress.text = estateById.address
                 txtSurface.setText(estateById.surface.toString())
                 locationList.add(LatLng(estateById.latitude, estateById.longitude))
 
 
-                if (estate != null) {
-                    if(estateById.isNearParks) parkCheckBox.isChecked = true
-                    if(estateById.isNearHighway) hwCheckBox.isChecked = true
-                    if(estateById.isNearSchools) schoolsCheckBox.isChecked = true
-                    if (estateById.isNearShops) shopsCheckBox.isChecked = true
-                }
+                if(estateById.isNearParks) parkCheckBox.isChecked = true
+                if(estateById.isNearHighway) hwCheckBox.isChecked = true
+                if(estateById.isNearSchools) schoolsCheckBox.isChecked = true
+                if (estateById.isNearShops) shopsCheckBox.isChecked = true
 
                 for (i in image){
-                    selectedImageUri.addAll(listOf(i.imageUri))
+                    selectedImageUri.addAll(listOf(i))
                     adapter.addSelectedImages(selectedImageUri)
                 }
                 //val imageUri : String = image[].imageUri
@@ -316,6 +337,9 @@ class AddEstateActivity : AppCompatActivity() {
             }
 
         }
+
+        takePicBtn.setOnClickListener { takeImage() }
+        choosePicBtn.setOnClickListener { chooseImage() }
         saveBtn.setOnClickListener {
             updateEstate()
             finish()}
@@ -339,26 +363,31 @@ class AddEstateActivity : AppCompatActivity() {
     }
 
     private fun updateEstate(){
-       estateViewModel.updateEstate(id = intent.getLongExtra(ESTATE1, -1L), price = Integer.parseInt(txtPrice.text.toString()),
-           estateTypePosition = spinner.selectedItemPosition,
-           surface = Integer.parseInt(txtSurface.text.toString()),
-           roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
-           bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
-           bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
-           address = txtAddress.text.toString(),
-           latitude = locationList[0].latitude,
-           longitude = locationList[0].longitude,
-           description = txtDescription.text.toString(),
-           isNearParks = parkCheckBox.isChecked,
-           isNearHighway =hwCheckBox.isChecked,
-           isNearSchools = schoolsCheckBox.isChecked,
-           isNearShops = shopsCheckBox.isChecked,
-           creationDate = LocalDate.now(),
-           estateTypeName = spinner.selectedItem.toString())
+        val updatedEstate = Estate(id = intent.getLongExtra(ESTATE1, -1L),
+            price = Integer.parseInt(txtPrice.text.toString()),
+            estateTypePosition = spinner.selectedItemPosition,
+            surface = Integer.parseInt(txtSurface.text.toString()),
+            roomNumber = Integer.parseInt(txtRoomNumber.text.toString()),
+            bathroomNumber = Integer.parseInt(txtBathroomNumber.text.toString()),
+            bedRoomNumber = Integer.parseInt(txtBedroomNumber.text.toString()),
+            address = txtAddress.text.toString(),
+            latitude = locationList[0].latitude,
+            longitude = locationList[0].longitude,
+            description = txtDescription.text.toString(),
+            isNearParks = parkCheckBox.isChecked,
+            isNearHighway =hwCheckBox.isChecked,
+            isNearSchools = schoolsCheckBox.isChecked,
+            isNearShops = shopsCheckBox.isChecked,
+            creationDate = LocalDate.now(),
+            estateTypeName = spinner.selectedItem.toString())
 
-      // coordinate = locationList[0])
+        estateViewModel.updateEstate(updatedEstate, imageToDelete, imageToInsert)
+        // coordinate = locationList[0])
     }
 
+
+    // conditionner avec should add
+    // regarder 3eme liste itemtoadd
 
 
 

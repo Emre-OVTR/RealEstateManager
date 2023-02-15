@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager
 
-enum class EstateType() {
+enum class EstateType {
     Flat,
     Villa,
     Loft

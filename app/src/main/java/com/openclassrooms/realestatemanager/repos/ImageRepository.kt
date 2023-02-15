@@ -1,8 +1,6 @@
 package com.openclassrooms.realestatemanager.repos
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import com.openclassrooms.realestatemanager.database.ImageDao
 import com.openclassrooms.realestatemanager.model.Image
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +14,10 @@ class ImageRepository @Inject constructor(private val imageDao: ImageDao) {
     @WorkerThread
     suspend fun insert(image: Image) : Long{
        return imageDao.insert(image)
+    }
+
+    suspend fun delete(image: Image){
+        return imageDao.delete(image)
     }
 
 }

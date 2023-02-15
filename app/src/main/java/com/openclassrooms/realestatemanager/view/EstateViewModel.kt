@@ -1,9 +1,9 @@
 package com.openclassrooms.realestatemanager.view
 
-import androidx.core.net.toUri
-import androidx.lifecycle.*
-import com.google.android.gms.maps.model.LatLng
-import com.openclassrooms.realestatemanager.database.EstateDao
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.FullEstate
 import com.openclassrooms.realestatemanager.model.Image
@@ -11,7 +11,6 @@ import com.openclassrooms.realestatemanager.repos.EstateRepository
 import com.openclassrooms.realestatemanager.repos.ImageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,79 +20,36 @@ class EstateViewModel @Inject constructor(private val repository : EstateReposit
     val allEstates: LiveData<List<FullEstate>> = repository.allEstates.asLiveData()
     fun getImages(estateId: Long): LiveData<List<Image>> = imageRepository.getImages(estateId).asLiveData()
 
-    fun insert(estate: Estate, uriList : List<String>) = viewModelScope.launch {
+    fun insert(estate: Estate, uriList : List<Image>) = viewModelScope.launch {
        // nous passons notre foction insert en tant que valeur de Id
-        val id =  repository.insert(estate)
+       val id = repository.insert(estate)
         for (uri in uriList){
-            val image = Image(estateId = id, imageUri = uri)
+            val image = Image(imageUri = uri.imageUri, estateId = id)
             insertImage(image)
         }
-
     }
 
-    fun insertImage(image: Image) = viewModelScope.launch {
+    private fun insertImage(image: Image) = viewModelScope.launch {
         imageRepository.insert(image)
+    }
+    private fun deleteImage(image: Image) = viewModelScope.launch {
+        imageRepository.delete(image)
     }
 
     fun getEstateById(id : Long): LiveData<Estate> = repository.getEstateById(id).asLiveData()
 
+    fun updateEstate(estate: Estate,imageToDelete: List<Image>, imageToInsert: List<Image> ) = viewModelScope.launch {
 
-    fun updateEstate(estate: Estate) = viewModelScope.launch {
         repository.update(estate)
+        for (image in imageToDelete){
+            deleteImage(image)
+        }
+        for (image in imageToInsert){
+          //  val imageToAdd = Image(imageUri = image.imageUri, estateId = estate.id)
+            insertImage(image)
+        }
+
     }
-
-
-
-
-    fun updateEstate(  id : Long,
-                       price: Int,
-                       description : String,
-                       isNearParks : Boolean,
-                       isNearShops : Boolean,
-                       isNearSchools: Boolean,
-                       isNearHighway: Boolean,
-                       estateTypePosition: Int,
-                       estateTypeName: String,
-                       surface: Int,
-                       roomNumber: Int,
-                       bathroomNumber: Int,
-                       bedRoomNumber: Int,
-                       address: String,
-                       longitude : Double,
-                       latitude : Double,
-                       creationDate : LocalDate) {
-        val updatedEstate = getUpdatedEstateEntry(id, price, description, isNearParks, isNearShops, isNearSchools, isNearHighway, estateTypePosition, estateTypeName, surface, roomNumber, bathroomNumber, bedRoomNumber, address, longitude, latitude, creationDate)
-        updateEstate(updatedEstate)
-    }
-
-
-    private fun getUpdatedEstateEntry(
-        id: Long,
-        price: Int,
-        description : String,
-        isNearParks : Boolean,
-        isNearShops : Boolean,
-        isNearSchools: Boolean,
-        isNearHighway: Boolean,
-        estateTypePosition: Int,
-        estateTypeName: String,
-        surface: Int,
-        roomNumber: Int,
-        bathroomNumber: Int,
-        bedRoomNumber: Int,
-        address: String,
-        longitude : Double,
-        latitude : Double,
-        creationDate : LocalDate
-    ): Estate {
-        return Estate(
-            id= id,  price = price, description = description, isNearParks = isNearParks, isNearShops = isNearShops, isNearSchools = isNearSchools, isNearHighway = isNearHighway,
-            estateTypePosition = estateTypePosition, estateTypeName = estateTypeName, surface = surface, roomNumber = roomNumber, bathroomNumber = bathroomNumber, bedRoomNumber = bedRoomNumber,
-            address = address, longitude = longitude, latitude = latitude, creationDate = creationDate
-        )
-    }
-
-
 
 }
 
