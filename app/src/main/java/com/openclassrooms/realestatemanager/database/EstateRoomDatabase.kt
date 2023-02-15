@@ -45,7 +45,7 @@ import java.util.*
                     longitude = 34.00, latitude = 34.00, isNearHighway = true, isNearShops = true, isNearParks = true, isNearSchools = true,
                     creationDate = LocalDate.now(),
                         estateTypeName = "Flat",
-                        //coordinate = "2"
+                        isSold = true//coordinate = "2"
                     )
           //              estateDao.insert(estate)
                 //    val imageDao = database.imageDao()

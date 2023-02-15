@@ -48,7 +48,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
     class EstateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val estateItemView: TextView = itemView.findViewById(R.id.text_view)
         private val estateItemPrice: TextView = itemView.findViewById(R.id.list_item_price)
-        private val estateItemBorough: TextView = itemView.findViewById(R.id.list_item_city)
+        private var estateItemSold: TextView = itemView.findViewById(R.id.list_item_sold)
         private val estateImage : ImageView = itemView.findViewById(R.id.list_item_main_pic)
 
 
@@ -62,7 +62,11 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
             estateItemView.text = estate.estate.estateTypeName
             estateItemPrice.text =  "$${estate.estate.price}"
            // estateItemBorough.text = estate.estate.borough
-
+            if (estate.estate.isSold){
+                estateItemSold.text = "SOLD"
+            } else {
+                estateItemSold.text = "FOR SALE"
+            }
             itemView.setOnClickListener{
                 clickListener(estate.estate)
             }

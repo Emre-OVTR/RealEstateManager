@@ -114,6 +114,8 @@ class AddEstateActivity : AppCompatActivity() {
     lateinit var schoolsCheckBox: CheckBox
     @BindView((R.id.nearby_shops))
     lateinit var shopsCheckBox: CheckBox
+    @BindView((R.id.add_activity_check_sold))
+    lateinit var soldCheckBox: CheckBox
 
 
     private lateinit var adapter: ImageRecyclerViewAdapter
@@ -273,6 +275,7 @@ class AddEstateActivity : AppCompatActivity() {
             isNearShops = shopsCheckBox.isChecked,
             creationDate = LocalDate.now(),
             estateTypeName = spinner.selectedItem.toString(),
+            isSold = soldCheckBox.isChecked
             //coordinate = locationList[0]
 
         )
@@ -323,6 +326,7 @@ class AddEstateActivity : AppCompatActivity() {
                 if(estateById.isNearHighway) hwCheckBox.isChecked = true
                 if(estateById.isNearSchools) schoolsCheckBox.isChecked = true
                 if (estateById.isNearShops) shopsCheckBox.isChecked = true
+                if(estateById.isSold) soldCheckBox.isChecked = true
 
                 for (i in image){
                     selectedImageUri.addAll(listOf(i))
@@ -379,7 +383,8 @@ class AddEstateActivity : AppCompatActivity() {
             isNearSchools = schoolsCheckBox.isChecked,
             isNearShops = shopsCheckBox.isChecked,
             creationDate = LocalDate.now(),
-            estateTypeName = spinner.selectedItem.toString())
+            estateTypeName = spinner.selectedItem.toString(),
+            isSold = soldCheckBox.isChecked)
 
         estateViewModel.updateEstate(updatedEstate, imageToDelete, imageToInsert)
         // coordinate = locationList[0])
