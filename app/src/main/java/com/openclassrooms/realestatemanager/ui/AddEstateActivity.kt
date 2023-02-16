@@ -189,7 +189,13 @@ class AddEstateActivity : AppCompatActivity() {
                     val userRatings = place.userRatingsTotal
 
                     textView.text = address
-                    locationList.add(latLng)
+                    if (locationList.isEmpty()){
+                        locationList.add(latLng)
+                    } else {
+                        locationList.replaceAll { latLng }
+                    }
+
+
                 }
 
                 override fun onError(status: Status) {
