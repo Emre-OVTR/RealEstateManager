@@ -1,9 +1,15 @@
 package com.openclassrooms.realestatemanager.ui
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
@@ -127,6 +133,12 @@ class AddEstateActivity : AppCompatActivity() {
     private var imageToDelete = mutableListOf<Image>()
     private var imageToInsert = mutableListOf<Image>()
     private var idEstate: Long? = null
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder: Notification.Builder
+    private val channelId = "i.apps.Notification"
+    private val description = "Test Notification"
 
 
 
@@ -286,6 +298,29 @@ class AddEstateActivity : AppCompatActivity() {
 
         )
         estateViewModel.insert(estate, selectedImageUri)
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = Notification.Builder(this, channelId)
+                .setContentText("Your new Estate is added with success !")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
+
+        } else {
+
+            builder = Notification.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
+
+        }
+        notificationManager.notify(1234, builder.build())
+
         finish()
 
 
