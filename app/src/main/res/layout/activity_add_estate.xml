@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/divider_estate"
         />
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_date_sold_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,9 +78,9 @@
             android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24"
             />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_estate_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -99,9 +99,9 @@
             android:hint="@string/activity_add_estate_type_hint"
             />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_price_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -121,9 +121,9 @@
             android:inputType="number"
             />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_surface_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -142,9 +142,9 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_room_number_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -162,9 +162,9 @@
             android:hint="@string/activity_add_estate_room_number_hint"
             android:inputType="number" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_bathroom_number_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -182,9 +182,9 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_bedroom_number_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -202,9 +202,9 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_desc_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
             android:inputType="textMultiLine"
             />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/title_address"
@@ -245,7 +245,7 @@
         app:layout_constraintTop_toBottomOf="@id/title_address"
         />
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_address_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -263,9 +263,9 @@
             android:layout_height="wrap_content"/>
 
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_add_address_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -282,7 +282,7 @@
             android:hint="@string/activity_add_estate_address_hint"
             />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/title_nearby"
@@ -351,29 +351,6 @@
         app:layout_constraintTop_toBottomOf="@id/nearby_shops"
         />
 
-    <LinearLayout
-        android:id="@+id/add_activity_date_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/activity_add_estate_date_hint"
-        app:layout_constraintTop_toBottomOf="@id/nearby_highway"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/space_between_elements"
-        android:paddingBottom="@dimen/small_space_between_items"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:clickable="true"
-            android:focusable="false"
-            android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24"
-            />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/title_media"
@@ -386,7 +363,7 @@
         android:textSize="@dimen/size_text_big"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_activity_date_layout"
+        app:layout_constraintTop_toBottomOf="@id/nearby_highway"
         />
 
     <View
