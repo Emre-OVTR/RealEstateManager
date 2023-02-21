@@ -19,7 +19,7 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/workmatesFragment"
+        android:id="@+id/loanFragment"
         android:name="com.openclassrooms.realestatemanager.ui.loan.LoanFragment"
         android:label="@string/title_loan"
         tools:layout="@layout/fragment_loan" />

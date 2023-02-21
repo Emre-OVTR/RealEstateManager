@@ -67,10 +67,21 @@
     <string name="title_activity_maps_fragment">MapsFragment</string>
     <string name="api_key">AIzaSyDe-dNNRExJ7sDeg9pRVWxAMcE5421i-so</string>
     <string name="edit">edit</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="loan_down_payment">Down Payment</string>
+    <string name="loan_term">Loan Term</string>
+    <string name="loan_interest">Interest</string>
+    <string name="loan_monthly_pay">Monthly pay</string>
+    <string name="loan_total_cost">Total coast</string>
+    <string name="loan_calculate">Calculate</string>
 
     <!-- ESTATE LIST FRAGMENT-->
 
     <!-- LOAN SIMULATOR -->
+
+    <string name="loan_error">This field can\'t be empty</string>
+    <string name="loan_error_interest_value">Interest rate must be between 0 and 100</string>
+    <string name="loan_error_down_payment">The down payment can\'t be higher or equal than loan amount</string>
 
     <!-- LOAN TERM VALUES -->
 
