@@ -8,5 +8,11 @@
         android:title="@string/action_add"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/baseline_search_24"
+        android:title="filter"
+        app:showAsAction="always"/>
+
 
 </menu>

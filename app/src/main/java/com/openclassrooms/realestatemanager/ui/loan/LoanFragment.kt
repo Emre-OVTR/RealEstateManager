@@ -10,18 +10,9 @@ import android.widget.TextView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentLoanBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoanFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoanFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
 
     private lateinit var fragmentLoanBinding: FragmentLoanBinding
 

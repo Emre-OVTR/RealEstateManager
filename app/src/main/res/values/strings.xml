@@ -82,6 +82,16 @@
     <string name="loan_error">This field can\'t be empty</string>
     <string name="loan_error_interest_value">Interest rate must be between 0 and 100</string>
     <string name="loan_error_down_payment">The down payment can\'t be higher or equal than loan amount</string>
+    <string name="search_price_min">price min</string>
+    <string name="search_price_max">price max</string>
+    <string name="search_surface_min">surface min</string>
+    <string name="search_surface_max">surface max</string>
+    <string name="search_bedrooms_min">bedrooms min</string>
+    <string name="search_bedrooms_max">bedroom max</string>
+    <string name="search_from_date">from date</string>
+    <string name="search_to_date">to date</string>
+    <string name="search_media_min">media min</string>
+    <string name="estate_status">Estate Status</string>
 
     <!-- LOAN TERM VALUES -->
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
@@ -29,9 +30,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.action_add -> {
                 val intent = Intent(this, AddEstateActivity::class.java)
+                startActivity(intent)
+                true
+
+            }
+            R.id.action_filter->{
+                val intent = Intent(this, SearchActivity::class.java)
                 startActivity(intent)
                 true
             }
