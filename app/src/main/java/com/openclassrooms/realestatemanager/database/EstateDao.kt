@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.database
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.FullEstate
 import kotlinx.coroutines.flow.Flow
@@ -21,5 +22,6 @@ interface EstateDao {
     @Update
     suspend fun update(estate: Estate)
 
-
+    @RawQuery
+    fun getFilteredEstates(query: SupportSQLiteQuery) : Flow<List<FullEstate>>
 }

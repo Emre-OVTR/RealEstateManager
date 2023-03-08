@@ -3,7 +3,8 @@ package com.openclassrooms.realestatemanager.model
 import androidx.room.Embedded
 import androidx.room.Relation
 
-class FullEstate {
+
+class FullEstate : java.io.Serializable {
 
     @Embedded
     lateinit var estate: Estate

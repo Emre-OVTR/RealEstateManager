@@ -83,8 +83,7 @@
                     android:id="@+id/loan_term"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="20" />
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,8 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:inputType="numberDecimal"
-                    android:text="2" />
+                    android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

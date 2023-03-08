@@ -9,14 +9,14 @@
         android:id="@+id/list_item_main_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/main_image" />
 
     <TextView
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="toto"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -40,7 +40,6 @@
     <TextView
         android:id="@+id/list_item_price"
         android:layout_width="wrap_content"
-        android:text="prix"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:textColor="@color/colorAccent"

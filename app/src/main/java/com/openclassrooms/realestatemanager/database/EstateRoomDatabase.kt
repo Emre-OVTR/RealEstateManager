@@ -6,15 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.Converters
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 @Database(entities = [Estate::class, Image::class], version = 1, exportSchema = true)
@@ -26,7 +23,7 @@ import java.util.*
 
     private class EstateDatabaseCallback(
         private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)

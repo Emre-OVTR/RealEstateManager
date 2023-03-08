@@ -20,7 +20,6 @@ data class Estate(
     val isNearHighway: Boolean,
     val estateTypePosition: Int,
     val estateTypeName: String,
-   // val borough: String,
     val surface: Int,
     val roomNumber: Int,
     val bathroomNumber: Int,

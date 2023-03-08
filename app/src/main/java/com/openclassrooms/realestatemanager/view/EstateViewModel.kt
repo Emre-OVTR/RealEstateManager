@@ -1,9 +1,11 @@
 package com.openclassrooms.realestatemanager.view
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.FullEstate
 import com.openclassrooms.realestatemanager.model.Image
@@ -50,6 +52,16 @@ class EstateViewModel @Inject constructor(private val repository : EstateReposit
         }
 
     }
+
+    fun getFilteredEstates(queryToConvert: String, args: Array<Any>) : LiveData<List<FullEstate>> {
+        val query = SimpleSQLiteQuery(queryToConvert, args)
+        Log.e("GET_ESTATES_BY_SEARCH","Query to execute : ${query.sql}")
+        args.forEach{
+            Log.e("GET_ESTATES_BY_SEARCH", "Args : $it")
+        }
+        return repository.getFilteredEstates(query).asLiveData()
+    }
+
 
 }
 

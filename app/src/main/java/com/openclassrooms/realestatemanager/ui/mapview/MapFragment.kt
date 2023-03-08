@@ -51,6 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
        //     estatesAddress.add(LatLng(i.estate.latitude, i.estate.longitude))
     //    }
 
+
     }
 
 

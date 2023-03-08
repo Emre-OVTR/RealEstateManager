@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.listview
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,17 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ListFragment() : Fragment()  {
+class ListFragment : Fragment()  {
 
     private lateinit var recyclerView: RecyclerView
     private  lateinit var adapter: EstateListAdapter
     private val estateViewModel : EstateViewModel by viewModels()
 
-    companion object {
-        fun newInstance(): ListFragment {
-            return ListFragment()
-        }
-    }
+
 
 
     override fun onCreateView(
@@ -52,11 +49,63 @@ class ListFragment() : Fragment()  {
             )
         )
 
-        estateViewModel.allEstates.observe(viewLifecycleOwner) { estates ->
-            estates?.let { getEstateAndPicture(it)}
+        if (requireArguments().isEmpty) {
+            estateViewModel.allEstates.observe(viewLifecycleOwner) { estates ->
+                estates?.let { getEstateAndPicture(it) } }
+        } else {
+
+            val query = requireArguments().getString("QUERY")
+            val myData: Array<Any> =
+                arguments?.getStringArray("ARGS")?.map { it.toBooleanOrString() }!!.toTypedArray()
+
+            estateViewModel.getFilteredEstates(query!!, myData)
+                .observe(viewLifecycleOwner) { filteredEstates ->
+                    filteredEstates?.let { getEstateAndPicture(it) }
+                }
         }
+            //  val args = requireArguments().getStringArray("ARGS")
+            //   val argsList : ArrayList<Any> = ArrayList(args?.toList())
 
 
+
+            //   val args: ListFragmentArgs by navArgs()
+            //    val filteredEstate = args.FilteredList
+            //  val myObject = args.fullEstate
+
+
+            //  if (args != null) {
+            // val args = args.map { it as Any }
+
+
+
+       // } else {
+       //     Log.e("ddh", "bundle is not null")
+
+         //   val query = requireArguments().getString("QUERY")
+        //    val args = requireArguments().getStringArray("ARGS")
+         //   val argsList : ArrayList<Any> = ArrayList(args?.toList())
+
+          //  val args: ListFragmentArgs by navArgs()
+          //  val filteredEstate = args.FilteredList
+          //  val myObject = args.fullEstate
+
+
+          //  if (args != null) {
+                // val args = args.map { it as Any }
+            //    estateViewModel.getFilteredEstates(query!!, argsList).observe(viewLifecycleOwner) { filteredestates ->
+             //       filteredestates?.let { getEstateAndPicture(it) }
+             //   }
+          //  } else {
+             //   Log.e("args", "args is null")
+         //   }
+      //  }
+
+    }
+
+    private fun String.toBooleanOrString(): Any = when (this) {
+        "true" -> true
+        "false" -> false
+        else -> this
     }
 
     private fun onEstateClicked(estate: Estate) {
@@ -74,16 +123,23 @@ class ListFragment() : Fragment()  {
                 estateViewModel.getImages(estateList[i].estate.id)
                     .observe(viewLifecycleOwner)  { pictureListLambda ->
                         if (pictureListLambda?.size == 0) {
+                            Log.e("image", "no image")
                         } else {
                             pictureListLambda?.let {
                                 adapter.submitList(estateList)
+                                Log.e("update", "List is submited")
                             }
                         }
+
 
                     }
             }
         }
+
     }
+
+
+
 }
 
 

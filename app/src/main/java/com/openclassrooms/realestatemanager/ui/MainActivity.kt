@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.openclassrooms.realestatemanager.R
@@ -15,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+
 
 
 
@@ -37,19 +37,24 @@ class MainActivity : AppCompatActivity() {
                 true
 
             }
-            R.id.action_filter->{
-                val intent = Intent(this, SearchActivity::class.java)
-                startActivity(intent)
-                true
-            }
+       //     R.id.action_filter->{
+            //    val intent = Intent(this, SearchActivity::class.java)
+            //    startActivity(intent)
+            //    true
+         //       val searchFragment = SearchFragment.newInstance()
+         //       searchFragment.show(supportFragmentManager, "CustomDialogFragment")
+         //       true
+         //   }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun configureNavController(){
+    fun configureNavController(){
         setSupportActionBar(findViewById(R.id.my_toolbar))
         val bottomNavigationView  : BottomNavigationView = findViewById(R.id.nav_view)
-        val navController : NavController = findNavController(this, R.id.nav_host_fragment)
+      //  val navController : NavController = findNavController(this, R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+       val  navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
     }
 

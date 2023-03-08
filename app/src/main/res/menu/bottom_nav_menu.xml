@@ -15,6 +15,9 @@
         android:id="@+id/loanFragment"
         android:icon="@drawable/ic_baseline_calculate_24"
         android:title="@string/title_loan" />
-
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/title_search"/>
 
 </menu>

@@ -10,7 +10,15 @@
         android:id="@+id/listFragment"
         android:name="com.openclassrooms.realestatemanager.ui.listview.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+
+        <argument
+            android:name="QUERY"
+            app:argType="string" />
+        <argument
+            android:name="ARGS"
+            app:argType="string[]" />
+    </fragment>
 
     <fragment
         android:id="@+id/mapFragment"
@@ -23,5 +31,15 @@
         android:name="com.openclassrooms.realestatemanager.ui.loan.LoanFragment"
         android:label="@string/title_loan"
         tools:layout="@layout/fragment_loan" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.openclassrooms.realestatemanager.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 
 </navigation>

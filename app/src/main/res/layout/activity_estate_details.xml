@@ -95,16 +95,6 @@
                 app:layout_constraintTop_toBottomOf="@id/detail_fragment_image_container"
                 tools:ignore="MissingConstraints" />
 
-            <ImageButton
-                android:id="@+id/detail_fragment_restore_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_between_elements"
-                android:background="@drawable/baseline_settings_backup_restore_24"
-                app:layout_constraintBottom_toBottomOf="@id/detail_fragment_text_desc"
-                app:layout_constraintStart_toEndOf="@id/detail_fragment_text_desc"
-                app:layout_constraintTop_toTopOf="@id/detail_fragment_text_desc" />
-
             <TextView
                 android:id="@+id/detail_fragment_desc"
                 android:layout_width="match_parent"
@@ -120,9 +110,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/small_space_between_items"
+                android:paddingStart="@dimen/small_space_between_items"
                 android:src="@drawable/ic_baseline_settings_overscan_24"
                 app:layout_constraintTop_toBottomOf="@id/detail_fragment_desc"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:contentDescription="@string/surface_icon" />
 
             <TextView
                 android:id="@+id/detail_fragment_text_surface"
@@ -141,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_between_elements"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/space_between_elements"
                 android:paddingTop="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@id/detail_fragment_text_surface"
@@ -153,9 +146,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/small_space_between_items"
+                android:paddingStart="@dimen/small_space_between_items"
                 android:src="@drawable/baseline_home_24"
                 app:layout_constraintEnd_toStartOf="@id/detail_fragment_text_rooms"
-                app:layout_constraintTop_toBottomOf="@id/detail_fragment_desc" />
+                app:layout_constraintTop_toBottomOf="@id/detail_fragment_desc"
+                android:contentDescription="@string/rooms_icon" />
 
             <TextView
                 android:id="@+id/detail_fragment_text_rooms"
@@ -174,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_between_elements"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/small_space_between_items"
                 android:paddingTop="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@id/detail_fragment_text_rooms"
@@ -186,9 +182,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/small_space_between_items"
+                android:paddingStart="@dimen/small_space_between_items"
                 android:src="@drawable/ic_baseline_hot_tub_24"
                 app:layout_constraintTop_toBottomOf="@id/detail_fragment_surface"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:contentDescription="@string/bathroom_icon" />
 
             <TextView
                 android:id="@+id/detail_fragment_text_bathrooms"
@@ -207,6 +205,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_between_elements"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/space_between_elements"
                 android:paddingTop="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@id/detail_fragment_text_bathrooms"
@@ -219,9 +218,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/small_space_between_items"
+                android:paddingStart="@dimen/small_space_between_items"
                 android:src="@drawable/ic_baseline_airline_seat_individual_suite_24"
                 app:layout_constraintStart_toStartOf="@id/detail_fragment_icon_rooms"
-                app:layout_constraintTop_toBottomOf="@id/detail_fragment_rooms" />
+                app:layout_constraintTop_toBottomOf="@id/detail_fragment_rooms"
+                android:contentDescription="@string/bedroom_icon" />
 
             <TextView
                 android:id="@+id/detail_fragment_text_bedrooms"
@@ -240,6 +241,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_between_elements"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/space_between_elements"
                 android:paddingTop="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@id/detail_fragment_text_bedrooms"
@@ -259,8 +261,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/small_space_between_items"
+                    android:paddingStart="@dimen/small_space_between_items"
                     android:src="@drawable/ic_baseline_location_city_24"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    android:contentDescription="@string/vicinity_icon" />
 
                 <TextView
                     android:id="@+id/vicinity_text"
@@ -296,8 +300,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/space_between_elements"
+                        android:paddingLeft="@dimen/space_between_elements"
                         app:layout_constraintBottom_toBottomOf="@id/vicinity_parks"
-                        app:layout_constraintStart_toEndOf="@id/vicinity_parks" />
+                        app:layout_constraintStart_toEndOf="@id/vicinity_parks"
+                        android:contentDescription="@string/park_image" />
 
                     <!-- SHOP -->
 
@@ -315,8 +321,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/space_between_elements"
+                        android:paddingLeft="@dimen/space_between_elements"
                         app:layout_constraintBottom_toBottomOf="@id/vicinity_shops"
-                        app:layout_constraintStart_toEndOf="@id/vicinity_shops" />
+                        app:layout_constraintStart_toEndOf="@id/vicinity_shops"
+                        android:contentDescription="@string/shop_image" />
 
                     <!-- SCHOOL -->
 
@@ -334,8 +342,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/space_between_elements"
+                        android:paddingLeft="@dimen/space_between_elements"
                         app:layout_constraintBottom_toBottomOf="@id/vicinity_schools"
-                        app:layout_constraintStart_toEndOf="@id/vicinity_schools" />
+                        app:layout_constraintStart_toEndOf="@id/vicinity_schools"
+                        android:contentDescription="@string/school_image" />
 
                     <!-- HIGHWAY -->
 
@@ -353,7 +363,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@id/vicinity_highway"
-                        app:layout_constraintStart_toEndOf="@id/vicinity_highway" />
+                        app:layout_constraintStart_toEndOf="@id/vicinity_highway"
+                        android:contentDescription="@string/highway_image" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -367,9 +378,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/small_space_between_items"
+                android:paddingStart="@dimen/small_space_between_items"
                 android:src="@drawable/ic_baseline_place_24"
                 app:layout_constraintTop_toBottomOf="@id/detail_fragment_vicinity_container"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:contentDescription="@string/location_icon" />
 
             <TextView
                 android:id="@+id/detail_fragment_text_location"
@@ -387,6 +400,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/space_between_elements"
                 android:paddingTop="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@+id/detail_fragment_text_location"
@@ -406,6 +420,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/space_between_elements"
+                android:paddingEnd="@dimen/space_between_elements"
                 android:textColor="@color/colorGreyText"
                 app:layout_constraintStart_toStartOf="@+id/detail_fragment_location_address"
                 app:layout_constraintTop_toBottomOf="@+id/detail_fragment_location_address" />
@@ -428,9 +443,7 @@
                 app:layout_constraintStart_toEndOf="@+id/detail_fragment_location_zip"
                 app:layout_constraintTop_toTopOf="@+id/detail_fragment_location_city" />
 
-    <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/detail_fragment_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"

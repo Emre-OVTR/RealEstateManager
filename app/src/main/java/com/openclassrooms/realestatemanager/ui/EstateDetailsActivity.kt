@@ -9,9 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -20,13 +18,13 @@ import butterknife.ButterKnife
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_estate_details.*
 
@@ -58,7 +56,6 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var highwayImage: ImageView
 
     private lateinit var mMap: GoogleMap
-    private  lateinit var recyclerview : RecyclerView
     private lateinit var adapter : EstateDetailsRecyclerViewAdapter
     private val estateViewModel: EstateViewModel by viewModels()
     private lateinit var estate: Estate

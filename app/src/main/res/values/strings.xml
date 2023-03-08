@@ -92,6 +92,21 @@
     <string name="search_to_date">to date</string>
     <string name="search_media_min">media min</string>
     <string name="estate_status">Estate Status</string>
+    <string name="title_search">Search</string>
+    <string name="save_button">saver</string>
+    <string name="image_button">image button</string>
+    <string name="surface_icon">surface_icon</string>
+    <string name="rooms_icon">rooms_icon</string>
+    <string name="bathroom_icon">bathroom_icon</string>
+    <string name="bedroom_icon">bedroom_icon</string>
+    <string name="vicinity_icon">vicinity_icon</string>
+    <string name="park_image">park_image</string>
+    <string name="shop_image">shop image</string>
+    <string name="school_image">school image</string>
+    <string name="highway_image">highway image</string>
+    <string name="location_icon">location icon</string>
+    <string name="estate_image">estate_image</string>
+    <string name="main_image">main image</string>
 
     <!-- LOAN TERM VALUES -->
 

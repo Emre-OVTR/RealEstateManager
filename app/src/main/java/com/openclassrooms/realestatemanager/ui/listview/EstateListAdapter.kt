@@ -1,7 +1,5 @@
 package com.openclassrooms.realestatemanager.ui.listview
 
-import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.FullEstate
-import com.openclassrooms.realestatemanager.model.Image
-import kotlinx.android.synthetic.main.fragment_list.view.*
-import kotlinx.android.synthetic.main.recyclerview_item.view.*
-import kotlin.math.absoluteValue
 
 class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : ListAdapter<FullEstate, EstateListAdapter.EstateViewHolder>(
     MyDiffUtil()
