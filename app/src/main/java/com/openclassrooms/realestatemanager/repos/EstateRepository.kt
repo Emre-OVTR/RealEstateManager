@@ -31,5 +31,4 @@ class EstateRepository @Inject constructor(private val estateDao: EstateDao) {
     }
 
 
-
 }

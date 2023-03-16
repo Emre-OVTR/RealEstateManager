@@ -64,12 +64,18 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estate_details)
         setSupportActionBar(findViewById(R.id.my_toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         ButterKnife.bind(this)
         this.configureRecyclerView()
         displayEstate()
         displayEstateImages()
         configureCheckBox()
         configureMap()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -86,6 +92,8 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         const val ESTATE = "ESTATE"
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_estate_details_appbar, menu
         )
@@ -93,17 +101,15 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun configureRecyclerView(){
-  //      recyclerview = findViewById(R.id.detail_fragment_recycler_view)
-  //      adapter = EstateDetailsRecyclerViewAdapter()
-  //      recyclerview.adapter = adapter
-  //      recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val viewPager = findViewById<ViewPager2>(R.id.detail_fragment_recycler_view)
+
         viewPager.apply {
             clipChildren = false
             clipToPadding = false
             offscreenPageLimit = 3
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
+
         adapter = EstateDetailsRecyclerViewAdapter()
         viewPager.adapter = adapter
 
@@ -113,7 +119,6 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             val r = 1 - kotlin.math.abs(position)
             page.scaleY = (0.80f + r * 0.20f)
         }
-
         viewPager.setPageTransformer(compositePageTransformer)
     }
 
@@ -135,7 +140,6 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun displayEstate(){
-
         estate = intent.getSerializableExtra(ESTATE) as Estate
         textDate.text = estate.creationDate.toString()
         textSurface.text = "${estate.surface} m²"

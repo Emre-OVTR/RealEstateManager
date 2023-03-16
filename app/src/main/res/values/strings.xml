@@ -8,13 +8,6 @@
     <string name="title_loan">Loan</string>
 
 
-    <!-- POPUP TITLE PERM -->
-
-    <!-- ERROR TEXT -->
-
-    <!-- MENU -->
-
-    <!-- ACTIVITY/FRAGMENT TITLE -->
 
     <!-- ADD ACTIVITY -->
     <string name="activity_add_estate_sold_checkbox">This estate is sold?</string>
@@ -47,13 +40,7 @@
     <string name="activity_add_title_nearby">Nearby points of interest</string>
     <string name="activity_add_title_media">Media</string>
 
-    <!-- OVERLAY -->
 
-    <!-- ESTATE TYPE -->
-
-    <!-- ESTATE STATUTE -->
-
-    <!-- ESTATE DETAIL FRAGMENT-->
     <string name="detail_fragment_media">Media</string>
     <string name="detail_fragment_desc">Description</string>
     <string name="detail_fragment_surface">Surface</string>
@@ -75,9 +62,7 @@
     <string name="loan_total_cost">Total coast</string>
     <string name="loan_calculate">Calculate</string>
 
-    <!-- ESTATE LIST FRAGMENT-->
 
-    <!-- LOAN SIMULATOR -->
 
     <string name="loan_error">This field can\'t be empty</string>
     <string name="loan_error_interest_value">Interest rate must be between 0 and 100</string>
@@ -107,16 +92,9 @@
     <string name="location_icon">location icon</string>
     <string name="estate_image">estate_image</string>
     <string name="main_image">main image</string>
-
-    <!-- LOAN TERM VALUES -->
-
-    <!-- BOTTOM NAVIGATION VIEW TITLE-->
-
-    <!-- SEARCH FRAGMENT -->
-
-    <!-- ESTATE SEARCH TYPE -->
-
-    <!-- ESTATE STATUTE -->
-
-    <!-- NOTIFICATIONS -->
+    <string name="type_spinner">type_spinner</string>
+    <string name="string_sold">SOLD</string>
+    <string name="string_forsale">FOR SALE</string>
+    <string name="string_dollar">$</string>
+    <string name="delete_button">delete_button</string>
 </resources>

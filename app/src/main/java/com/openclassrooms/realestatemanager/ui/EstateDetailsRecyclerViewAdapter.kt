@@ -16,7 +16,6 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
 
     private var uriOfEstateImage : MutableList<Image> = ArrayList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateDetailsViewHolder {
         val view  = LayoutInflater.from(parent.context)
             .inflate(R.layout.estate_details_recyclerview_item, parent, false)
@@ -30,19 +29,11 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
     override fun onBindViewHolder(holder: EstateDetailsViewHolder, position: Int)  {
         val image =uriOfEstateImage[position]
         holder.bind(image)
-     //  val uri : Uri  = Uri.parse(Uri.parse(image.imageUri).path)
-    //    holder.picture.setImageURI(uri)
-    //    holder.glide.load(uri).into(holder.itemView.savedImageView)
     }
-
 
     override fun getItemCount(): Int {
         return uriOfEstateImage.size
     }
-
-   // fun getImage(position: Int) : Image{
-   //     return uriOfEstateImage[position]
-  //  }
 
    @SuppressLint("NotifyDataSetChanged")
    fun getImage(images : List<Image>){
@@ -52,9 +43,7 @@ class EstateDetailsRecyclerViewAdapter : RecyclerView.Adapter<EstateDetailsRecyc
 
     class EstateDetailsViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
             private val picture :ImageView = itemView.findViewById(R.id.savedImageView)
-           // val glide : RequestManager = Glide.with(itemView)
         fun bind (image: Image) = with(itemView){
-           // glide.load(Uri.parse(image.imageUri)).into(picture)
             Glide.with(context).load(Uri.parse(image.imageUri)).into(picture)
         }
     }

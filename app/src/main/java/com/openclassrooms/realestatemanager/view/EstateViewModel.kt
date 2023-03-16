@@ -23,7 +23,6 @@ class EstateViewModel @Inject constructor(private val repository : EstateReposit
     fun getImages(estateId: Long): LiveData<List<Image>> = imageRepository.getImages(estateId).asLiveData()
 
     fun insert(estate: Estate, uriList : List<Image>) = viewModelScope.launch {
-       // nous passons notre foction insert en tant que valeur de Id
        val id = repository.insert(estate)
         for (uri in uriList){
             val image = Image(imageUri = uri.imageUri, estateId = id)
@@ -47,22 +46,19 @@ class EstateViewModel @Inject constructor(private val repository : EstateReposit
             deleteImage(image)
         }
         for (image in imageToInsert){
-          //  val imageToAdd = Image(imageUri = image.imageUri, estateId = estate.id)
             insertImage(image)
         }
 
     }
 
-    fun getFilteredEstates(queryToConvert: String, args: Array<Any>) : LiveData<List<FullEstate>> {
+    fun getFilteredEstates(queryToConvert: String, args: Array<Any>?) : LiveData<List<FullEstate>> {
         val query = SimpleSQLiteQuery(queryToConvert, args)
         Log.e("GET_ESTATES_BY_SEARCH","Query to execute : ${query.sql}")
-        args.forEach{
+        args?.forEach{
             Log.e("GET_ESTATES_BY_SEARCH", "Args : $it")
         }
         return repository.getFilteredEstates(query).asLiveData()
     }
-
-
 }
 
 

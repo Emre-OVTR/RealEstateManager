@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.ui.searchview
 
 import android.R
 import android.os.Bundle
@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.openclassrooms.realestatemanager.EstateStatus
+import com.openclassrooms.realestatemanager.EstateType
 import com.openclassrooms.realestatemanager.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -49,13 +52,13 @@ class SearchFragment : Fragment() {
         val statusArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.simple_spinner_item, listOfStatus)
         statusSpinner.adapter = statusArrayAdapter
-
-
+        statusSpinner.setSelection(2)
     }
 
 
     private fun buildSearchQuery() {
 
+        val estateTypePosition = estateType_spinner.selectedItemPosition
         val estateType = estateType_spinner.selectedItem.toString()
         val estateStatus = estateStatus_spinner.selectedItemPosition
         val estatePriceMin = search_fragment_price_min.text.toString().toIntOrNull()
@@ -68,20 +71,19 @@ class SearchFragment : Fragment() {
         val estateHighway = search_fragment_nearby_highway.isChecked
         val estateSchool = search_fragment_nearby_schools.isChecked
         val estateShop = search_fragment_nearby_shops.isChecked
-
-        // var query = "SELECT *,(SELECT COUNT(*) FROM Image WHERE Image.estateId = Estate.id) AS count_images FROM Estate INNER JOIN Location ON Estate.id = Location.estateId"
         var query = "SELECT * FROM estate_table"
         val args = arrayListOf<Any>()
         var conditions = false
 
-        if (estateType != null) {
+
+        if (estateTypePosition > 0) {
 
             query += if (conditions) " AND " else " WHERE "; conditions = true
-            query += "estateTypeName =:$estateType"
+            query += "estateTypeName =:${estateType}"
             args.add(estateType)
         }
 
-        if (estateStatus != null) {
+        if (estateStatus != 2) {
 
             query += if (conditions) " AND " else " WHERE "; conditions = true
             query += "isSold =:$estateStatus"
@@ -149,20 +151,11 @@ class SearchFragment : Fragment() {
             args.add(estateHighway)
         }
 
-        launchListFragment(query, args.toArray())
-
-
-      //  estateViewModel.getFilteredEstates(query, arg).observe(this, Observer {
-      //      if (it!!.isNotEmpty()) {
-        //        Log.e("debug", "ListFragment is Launched")
-
-
-        //    } else {
-        //        Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
-        //    }
-       // })
-
-
+        if(args.isEmpty()){
+            Toast.makeText(context,"Can't filter List without arguments", Toast.LENGTH_LONG).show()
+        } else {
+            launchListFragment(query, args.toArray())
+        }
     }
 
 
@@ -172,38 +165,6 @@ class SearchFragment : Fragment() {
         findNavController().navigate(com.openclassrooms.realestatemanager.R.id.action_searchFragment_to_listFragment, Bundle().apply {
             putString("QUERY", query)
             putStringArray("ARGS", argsTyped)
-//        val bundle = Bundle()
-//        val newFragment = ListFragment.newInstance()
-//        bundle.putString("QUERY", query)
-//        bundle.putStringArrayList("ARGS", args as java.util.ArrayList<String>)
-//        newFragment.arguments = bundle
-//        if (bundle.isEmpty){
-//            Log.e("error", "bundle is empty")
-//        } else {
-//            Log.e("error", "bundle is not empty")
-        //       }
-        //      val args = args.map{it as String}
-
-
-        //     val argsString : Array<String> = args.filterIsInstance<String>().toTypedArray()
-
-
-
-        //   }
-        //   val action = SearchFragmentDirections.actionSearchFragmentToListFragment(filteredEstate)
-        //    findNavController().navigate(action)
-
-        //    }
-
-        //    val action = SearchFragmentDirections.actionSearchFragmentToListFragment(filteredEstate)
-        //    findNavController().navigate(action)
-        // }
-
-    //    val action = SearchFragmentDirections.actionSearchFragmentToListFragment(filteredEstate)
-    //    findNavController().navigate(action)
-
-
     })
-
 }
 }

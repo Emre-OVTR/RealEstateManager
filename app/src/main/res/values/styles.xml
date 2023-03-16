@@ -9,12 +9,7 @@
         <item name="alertDialogTheme">@android:style/Theme.Holo.Dialog</item>
     </style>
 
-    <style name="Theme.UserDialog" parent="@style/AppTheme">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+
 
 
 

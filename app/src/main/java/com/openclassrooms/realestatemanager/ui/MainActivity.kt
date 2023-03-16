@@ -4,11 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.ui.listview.ListFragment
+import com.openclassrooms.realestatemanager.view.EstateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,12 +21,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         this.configureNavController()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,27 +40,18 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, AddEstateActivity::class.java)
                 startActivity(intent)
                 true
-
             }
-       //     R.id.action_filter->{
-            //    val intent = Intent(this, SearchActivity::class.java)
-            //    startActivity(intent)
-            //    true
-         //       val searchFragment = SearchFragment.newInstance()
-         //       searchFragment.show(supportFragmentManager, "CustomDialogFragment")
-         //       true
-         //   }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun configureNavController(){
+    private fun configureNavController(){
         setSupportActionBar(findViewById(R.id.my_toolbar))
         val bottomNavigationView  : BottomNavigationView = findViewById(R.id.nav_view)
-      //  val navController : NavController = findNavController(this, R.id.nav_host_fragment)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-       val  navController = navHostFragment.navController
+        val  navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
     }
+
 
 }

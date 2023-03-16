@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,9 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Image
 
 
-class ImageRecyclerViewAdapter(private val clickListener : (imageUri: Image ) -> Unit): RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>() {
+class AddEstateRecyclerViewAdapter(private val clickListener : (imageUri: Image ) -> Unit): RecyclerView.Adapter<AddEstateRecyclerViewAdapter.ImageViewHolder>() {
 
     private var selectedImageUri = mutableListOf<Image>()
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view  = LayoutInflater.from(parent.context)
@@ -38,12 +37,11 @@ class ImageRecyclerViewAdapter(private val clickListener : (imageUri: Image ) ->
         }
     }
 
-
     override fun getItemCount(): Int {
         return selectedImageUri.size
     }
 
-
+    @SuppressLint("NotifyDataSetChanged")
     fun addSelectedImages(images: MutableList<Image>){
         this.selectedImageUri = images
         notifyDataSetChanged()
@@ -55,8 +53,4 @@ class ImageRecyclerViewAdapter(private val clickListener : (imageUri: Image ) ->
         val button : ImageButton = itemView.findViewById(R.id.button1)
     }
 
-    //passer des images au lieu des Uri
-    //recuperer(get) uri de chaque image
-    //creer fonction ds addestate qui va prendre une image en parametre que je vais passer en lambda dans l adapter(constructeur)
-    // utiliser lambda dans le viewholder
 }

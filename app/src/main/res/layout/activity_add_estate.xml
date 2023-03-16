@@ -54,29 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/divider_estate"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_activity_date_sold_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/add_activity_check_sold"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingBottom="@dimen/space_between_elements"
-        android:visibility="gone"
-        >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_activity_date_sold"
-            android:hint="@string/activity_add_estate_sold_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:clickable="true"
-            android:focusable="false"
-            android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_activity_estate_layout"
@@ -94,7 +72,6 @@
             android:id="@+id/estateType_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/activity_add_estate_type_hint"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -104,7 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@+id/add_activity_date_sold_layout"
+        app:layout_constraintTop_toBottomOf="@+id/add_activity_check_sold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent=".49"
         android:layout_marginTop="@dimen/space_between_elements"

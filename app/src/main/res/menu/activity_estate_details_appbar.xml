@@ -8,5 +8,4 @@
         android:title="@string/edit"
         app:showAsAction="always"
         />
-
 </menu>

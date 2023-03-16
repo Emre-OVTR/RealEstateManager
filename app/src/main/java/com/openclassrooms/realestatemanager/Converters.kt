@@ -8,7 +8,6 @@ class Converters {
     fun fromTimeStamp(value: String): LocalDate {
         return value.let { LocalDate.parse(value) }
     }
-
     @TypeConverter
     fun dateToTimeStamp(date: LocalDate): String {
         return date.toString()

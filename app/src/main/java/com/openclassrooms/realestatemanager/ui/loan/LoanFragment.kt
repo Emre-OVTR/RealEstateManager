@@ -13,12 +13,7 @@ import kotlin.math.pow
 
 class LoanFragment : Fragment() {
 
-
     private lateinit var fragmentLoanBinding: FragmentLoanBinding
-
-    //instancier textviews et button
-    // clcicklistener sur button qui declenche un calcul
-    // affichage des resultats
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +29,6 @@ class LoanFragment : Fragment() {
     ): View {
         return fragmentLoanBinding.root
     }
-
-
 
 
     private fun calculate(){

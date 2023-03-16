@@ -21,7 +21,7 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
 
 
 
-// Le probleme c'est que l'image chargé n'a aucun lien avec notre estate mise a part le font qu'ils ont le meme id imageid / ESTATEID
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EstateViewHolder {
@@ -30,13 +30,9 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
 
     override fun onBindViewHolder(holder: EstateViewHolder, position: Int) {
         val estate = getItem(position)
-       // val image = Image(imageUri = imageList.get(position).imageUri, estateId = getItemId(position))
-
         holder.bind(estate, clickListener)
 
     }
-
-
 
     class EstateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val estateItemView: TextView = itemView.findViewById(R.id.text_view)
@@ -46,19 +42,14 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
 
 
         fun bind(estate: FullEstate, clickListener: (estate: Estate) -> Unit) = with(itemView) {
-           // if (image) {
-                Glide.with(context).load(Uri.parse(estate.images[0].imageUri)).apply(RequestOptions().centerCrop()).into(estateImage)
-           // } else {
-          //      Glide.with(context).load(R.drawable.ic_no_image_available).apply(RequestOptions().centerCrop()).into(estateImage)
-         //   }
-
+            Glide.with(context).load(Uri.parse(estate.images[0].imageUri)).apply(RequestOptions().centerCrop()).into(estateImage)
             estateItemView.text = estate.estate.estateTypeName
             estateItemPrice.text =  "$${estate.estate.price}"
-           // estateItemBorough.text = estate.estate.borough
+
             if (estate.estate.isSold){
-                estateItemSold.text = "SOLD"
+                estateItemSold.text = context.getString(R.string.string_sold)
             } else {
-                estateItemSold.text = "FOR SALE"
+                estateItemSold.text = context.getString(R.string.string_forsale)
             }
             itemView.setOnClickListener{
                 clickListener(estate.estate)
@@ -73,15 +64,6 @@ class EstateListAdapter(private val clickListener: (estate: Estate)-> Unit) : Li
             }
         }
     }
-
-
- //   @SuppressLint("NotifyDataSetChanged")
-   /// fun updateImage(imageList: List<Image>) {
-
-   ///     this.imageList = imageList as MutableList<Image>
-    //    this.notifyDataSetChanged()
-   // }
-
 
     class MyDiffUtil : DiffUtil.ItemCallback<FullEstate>() {
         override fun areItemsTheSame(oldItem: FullEstate, newItem: FullEstate): Boolean {

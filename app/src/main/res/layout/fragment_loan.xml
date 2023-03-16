@@ -162,7 +162,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/colorAccent"
                 android:text="@string/loan_calculate"
-                android:textColor="@color/colorGrey"
+                android:textColor="@color/quantum_white_100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

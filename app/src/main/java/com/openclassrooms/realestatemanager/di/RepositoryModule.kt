@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.DI
+package com.openclassrooms.realestatemanager.di
 
 import com.openclassrooms.realestatemanager.database.EstateDao
 import com.openclassrooms.realestatemanager.database.ImageDao
