@@ -26,6 +26,7 @@ public class Utils {
         return (int) Math.round(dollars * 0.812);
     }
 
+
     public static int convertEuroToDollar(int euros) {
         return (int) Math.round(euros * 1.250);
     }
@@ -42,6 +43,7 @@ public class Utils {
     }
 
 
+
     /**
      * Vérification de la connexion réseau
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
@@ -54,13 +56,12 @@ public class Utils {
         return wifi.isWifiEnabled();
     }
 
-    public static Boolean isConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null ) {
-           return networkInfo.isConnected();
-        } else
-            return false;
 
+    public static Boolean isConnected(Context context){
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }
+

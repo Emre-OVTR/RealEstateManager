@@ -472,4 +472,5 @@ class AddEstateActivity : AppCompatActivity() {
         )
         estateViewModel.updateEstate(updatedEstate, imageToDelete, selectedImage)
     }
+
 }
