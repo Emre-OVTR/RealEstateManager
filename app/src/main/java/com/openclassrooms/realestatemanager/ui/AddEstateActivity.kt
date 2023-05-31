@@ -310,7 +310,6 @@ class AddEstateActivity : AppCompatActivity() {
         } else {
             requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
-
         finish()
     }
 
@@ -471,6 +470,8 @@ class AddEstateActivity : AppCompatActivity() {
             isSold = soldCheckBox.isChecked
         )
         estateViewModel.updateEstate(updatedEstate, imageToDelete, selectedImage)
+        finish()
     }
+
 
 }
