@@ -154,6 +154,8 @@ class AddEstateActivity : AppCompatActivity() {
         this.retrieveEstateId()
     }
 
+
+    //Utiliser Corouutine pour cette fonction
     private fun configureAddressSearchBar(){
         val apiKey: String = getString(R.string.api_key)
         if (!Places.isInitialized()) {
