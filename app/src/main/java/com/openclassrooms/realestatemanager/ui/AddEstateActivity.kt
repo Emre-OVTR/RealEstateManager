@@ -40,6 +40,7 @@ import com.openclassrooms.realestatemanager.model.Estate
 import com.openclassrooms.realestatemanager.model.Image
 import com.openclassrooms.realestatemanager.view.EstateViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.my_toolbar
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.time.LocalDate
@@ -146,6 +147,7 @@ class AddEstateActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.title = "Add New Estate"
         ButterKnife.bind(this)
         this.configureRecyclerView()
         this.setOnClickListeners()
@@ -347,8 +349,10 @@ class AddEstateActivity : AppCompatActivity() {
                     listImage.addAll(imagesById)
             }
             if (estateId != -1L && listImage.isNotEmpty()) {
+                actionBar?.setTitle("Edit Estate")
                 bind(estateId, listImage)
                 Log.e("hhh", "is not empty")
+
             }
         }
 

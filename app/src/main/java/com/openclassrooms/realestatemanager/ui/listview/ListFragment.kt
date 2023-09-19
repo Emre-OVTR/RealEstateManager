@@ -36,6 +36,7 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = "Estates List"
         recyclerView = view.findViewById(R.id.estate_list)
         adapter = EstateListAdapter(this::onEstateClicked)
         recyclerView.adapter = adapter

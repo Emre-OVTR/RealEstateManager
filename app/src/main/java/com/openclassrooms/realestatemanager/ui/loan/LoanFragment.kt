@@ -17,6 +17,7 @@ class LoanFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireActivity().title = "Loan Simulator"
         fragmentLoanBinding = FragmentLoanBinding.inflate(layoutInflater)
         fragmentLoanBinding.loanCalculate.setOnClickListener {
             calculate()

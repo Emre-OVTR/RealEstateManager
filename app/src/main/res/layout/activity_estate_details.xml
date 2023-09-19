@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.EstateDetailsActivity">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="20dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent">
 
-
-
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="20dp"
+            app:layout_constraintTop_toTopOf="parent"/>
             <TextView
                 android:id="@+id/detail_fragment_text_media"
                 android:layout_width="wrap_content"
@@ -37,8 +40,7 @@
                 android:textSize="@dimen/size_text_small"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_toolbar"
-                />
+                app:layout_constraintTop_toBottomOf="@id/my_toolbar"/>
 
             <TextView
                 android:id="@+id/detail_fragment_sold_on"
@@ -458,7 +460,10 @@
         map:layout_constraintTop_toBottomOf="@id/detail_fragment_location_city"
         map:liteMode="true" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

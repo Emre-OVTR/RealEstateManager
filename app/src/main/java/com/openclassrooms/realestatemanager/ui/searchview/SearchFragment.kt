@@ -28,6 +28,7 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireActivity().setTitle("Filter Estates")
         fragmentSearchBinding = FragmentSearchBinding.inflate(layoutInflater)
         configureSpinners()
         fragmentSearchBinding.searchFragmentFAB.setOnClickListener {
