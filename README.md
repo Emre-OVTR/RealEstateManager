@@ -1,5 +1,10 @@
 # REAL ESTATE MANAGER
+Application pour aider les agents dans la gestion des biens immobiliers.
 
+Ecrit en Kotlin.
+
+Librairies :
+Room, ViewModel, LiveData, Espresso, ButterKnife, Glide, Google Play Services Maps, Dagger/Hilt.
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
 <img src="https://github.com/Emre-OVTR/RealEstateManager/blob/main/screenshots/Screenshot_20230919_201611.png" alt="Description de l'image" width="200" height="400">
 <img src="https://github.com/Emre-OVTR/RealEstateManager/blob/main/screenshots/Screenshot_20230919_200918.png" alt="Description de l'image" width="200" height="400">
