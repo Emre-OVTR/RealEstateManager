@@ -153,7 +153,23 @@ class AddEstateActivity : AppCompatActivity() {
         this.setOnClickListeners()
         this.configureSpinner()
         this.configureAddressSearchBar()
-        this.retrieveEstateId()
+        val estateId = intent.getLongExtra(ESTATE1, -1L)
+        Log.e("hhh", "retrieve")
+        val listImage: MutableList<Image> = ArrayList()
+        estateViewModel.getImages(estateId).observe(this) { imagesById ->
+            imagesById.let {
+                listImage.addAll(imagesById)
+            }
+            if (estateId != -1L && listImage.isNotEmpty()) {
+                actionBar?.setTitle("Edit Estate")
+                bind(estateId, listImage)
+                Log.e("hhh", "is not empty")
+
+            } else {
+                actionBar?.setTitle("Add Estate")
+            }
+        }
+      //  this.retrieveEstateId()
     }
 
 
@@ -339,24 +355,11 @@ class AddEstateActivity : AppCompatActivity() {
         return FileProvider.getUriForFile(applicationContext, "${com.openclassrooms.realestatemanager.BuildConfig.APPLICATION_ID}.provider", tmpFile)
     }
 
-    private fun retrieveEstateId() {
+  //  private fun retrieveEstateId() {
 
-        val estateId = intent.getLongExtra(ESTATE1, -1L)
-        Log.e("hhh", "retrieve")
-        val listImage: MutableList<Image> = ArrayList()
-        estateViewModel.getImages(estateId).observe(this) { imagesById ->
-            imagesById.let {
-                    listImage.addAll(imagesById)
-            }
-            if (estateId != -1L && listImage.isNotEmpty()) {
-                actionBar?.setTitle("Edit Estate")
-                bind(estateId, listImage)
-                Log.e("hhh", "is not empty")
 
-            }
-        }
 
-    }
+  //  }
 
     private fun bind(estateId: Long, image: MutableList<Image>) {
      Log.e("uuu", "binder")

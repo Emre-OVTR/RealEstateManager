@@ -65,6 +65,8 @@ class EstateDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_estate_details)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val actionBar = supportActionBar
+        actionBar?.title = "Estate Details"
         ButterKnife.bind(this)
         this.configureRecyclerView()
         displayEstate()
